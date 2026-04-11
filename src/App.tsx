@@ -38,8 +38,23 @@ function Swatch({ name, value }: { name: string; value: string }) {
 // ── Prototype chrome ────────────────────────────────────────
 // Floats the dark mode bar OFF the design — only reveals it when the user
 // hovers a thin trigger zone at the top of the viewport.
+// When embedded in an iframe, the chrome is hidden entirely so the
+// portfolio embed shows nothing but the prototype itself.
+const isEmbedded = (() => {
+  try { return window.parent !== window; } catch { return true; }
+})();
+
 function PrototypeChrome({ label, onExit, children }: { label: string; onExit: () => void; children: React.ReactNode }) {
   const [showBar, setShowBar] = useState(false);
+
+  if (isEmbedded) {
+    return (
+      <div style={{ height: '100vh', overflow: 'auto' }}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}>
       <div className="ds-mode-bar-trigger" onMouseEnter={() => setShowBar(true)} />
