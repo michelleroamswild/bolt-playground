@@ -1,0 +1,198 @@
+/* ============================================================
+   Blitz — Button
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-base) var(--ease-default),
+    color var(--duration-base) var(--ease-default),
+    border-color var(--duration-base) var(--ease-default),
+    box-shadow var(--duration-base) var(--ease-default);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+.btn--xs {
+  height: 28px;
+  padding: 0 var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  gap: var(--space-1);
+}
+
+.btn--s {
+  height: 36px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-s);
+  line-height: var(--lh-s);
+}
+
+.btn--m {
+  height: 44px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-m);
+  line-height: var(--lh-m);
+}
+
+/* ── Pill shape ───────────────────────────────────────────── */
+.btn--pill.btn--xs { border-radius: var(--radius-pill-xs); }
+.btn--pill.btn--s  { border-radius: var(--radius-pill-s); }
+.btn--pill.btn--m  { border-radius: var(--radius-pill-m); }
+
+/* ── Full width ───────────────────────────────────────────── */
+.btn--full {
+  width: 100%;
+}
+
+/* ── Primary ──────────────────────────────────────────────── */
+.btn--primary {
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-fg-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--btn-bg-primary-hover);
+  color: var(--btn-fg-primary-hover);
+}
+
+.btn--primary:active:not(:disabled) {
+  background-color: var(--btn-bg-primary-pressed);
+}
+
+.btn--primary:disabled {
+  background-color: var(--btn-bg-primary-disabled);
+  color: var(--content-disabled);
+  cursor: not-allowed;
+}
+
+/* ── Secondary ────────────────────────────────────────────── */
+.btn--secondary {
+  background-color: var(--btn-bg-secondary);
+  color: var(--btn-fg-secondary);
+  border-color: var(--border-secondary);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--btn-bg-secondary-hover);
+  border-color: var(--border-primary);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--surface-primary-pressed);
+}
+
+.btn--secondary:disabled {
+  background-color: var(--surface-disabled);
+  color: var(--content-disabled);
+  border-color: var(--border-tertiary);
+  cursor: not-allowed;
+}
+
+/* ── Tertiary (ghost) ─────────────────────────────────────── */
+.btn--tertiary {
+  background-color: transparent;
+  color: var(--content-secondary);
+}
+
+.btn--tertiary:hover:not(:disabled) {
+  background-color: var(--surface-primary-hovered);
+}
+
+.btn--tertiary:active:not(:disabled) {
+  background-color: var(--surface-primary-pressed);
+}
+
+.btn--tertiary:disabled {
+  color: var(--content-disabled);
+  cursor: not-allowed;
+}
+
+/* ── Destructive ──────────────────────────────────────────── */
+.btn--destructive.btn--primary {
+  background-color: var(--btn-bg-critical);
+  color: var(--content-on-color);
+}
+
+.btn--destructive.btn--primary:hover:not(:disabled) {
+  background-color: var(--red-600);
+  color: var(--content-on-color);
+}
+
+.btn--destructive.btn--secondary {
+  color: var(--content-critical);
+  border-color: var(--border-critical);
+}
+
+.btn--destructive.btn--tertiary {
+  color: var(--content-critical);
+}
+
+/* ── Inverse ──────────────────────────────────────────────── */
+.btn--inverse.btn--primary {
+  background-color: var(--white);
+  color: var(--bolt-black);
+}
+
+.btn--inverse.btn--secondary {
+  background-color: var(--btn-bg-inverse-secondary);
+  color: var(--content-inverse-primary);
+  border-color: var(--border-inverse-primary);
+}
+
+.btn--inverse.btn--tertiary {
+  color: var(--content-inverse-primary);
+}
+
+.btn--inverse.btn--tertiary:hover:not(:disabled) {
+  background-color: var(--surface-inverse-tertiary);
+}
+
+/* ── Busy state ───────────────────────────────────────────── */
+.btn--busy {
+  cursor: wait;
+}
+
+.btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-full);
+  animation: btn-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Icon slots ───────────────────────────────────────────── */
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn--m .btn__icon svg { width: 18px; height: 18px; }
+.btn--l .btn__icon svg { width: 20px; height: 20px; }

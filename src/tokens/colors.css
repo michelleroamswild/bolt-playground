@@ -1,0 +1,163 @@
+/* ============================================================
+   Blitz Design System — Color Tokens
+   ============================================================ */
+
+:root {
+  /* ── Primitives: Gray ─────────────────────────────────────── */
+  --gray-25: #fafafa;
+  --gray-50: #f6f5f4;
+  --gray-100: #eeedeb;
+  --gray-200: #dad9d7;
+  --gray-300: #c4c3c0;
+  --gray-400: #9e9e99;
+  --gray-500: #6f6f67;
+  --gray-600: #454644;
+  --gray-700: #333432;
+  --gray-800: #242621;
+  --gray-900: #1f211c;
+  --black: #000000;
+  --white: #ffffff;
+
+  /* ── Primitives: Blue ─────────────────────────────────────── */
+  --blue-25: #edf5ff;
+  --blue-50: #e5f0ff;
+  --blue-100: #cce2ff;
+  --blue-200: #b2d3ff;
+  --blue-300: #80b6ff;
+  --blue-400: #4091ff;
+  --blue-500: #006dff;
+  --blue-600: #0051bf;
+  --blue-700: #0f4085;
+  --blue-800: #163460;
+  --blue-900: #0a2143;
+
+  /* ── Primitives: Green ────────────────────────────────────── */
+  --green-25: #edf9ed;
+  --green-50: #e0f6e2;
+  --green-100: #ccefd2;
+  --green-200: #b2e7bd;
+  --green-300: #80d796;
+  --green-400: #4cc875;
+  --green-500: #00ae49;
+  --green-600: #00793c;
+  --green-700: #00582c;
+  --green-800: #153726;
+  --green-900: #00231a;
+
+  /* ── Primitives: Red ──────────────────────────────────────── */
+  --red-25: #fcf1f2;
+  --red-50: #fbeaec;
+  --red-100: #f8d6d9;
+  --red-200: #fcc2c2;
+  --red-300: #fba3a4;
+  --red-400: #fd4e4e;
+  --red-500: #e62728;
+  --red-600: #a81421;
+  --red-700: #6b0811;
+  --red-800: #471f22;
+  --red-900: #360c10;
+
+  /* ── Primitives: Violet ───────────────────────────────────── */
+  --violet-25: #f5f4ff;
+  --violet-50: #f2eafd;
+  --violet-100: #e8d8fc;
+  --violet-200: #d5b9fa;
+  --violet-300: #bd92f6;
+  --violet-400: #a25cff;
+  --violet-500: #8c40f2;
+  --violet-600: #752fd0;
+  --violet-700: #572a92;
+  --violet-800: #33265f;
+  --violet-900: #271b50;
+
+  /* ── Primitives: Yellow ───────────────────────────────────── */
+  --yellow-25: #fefaef;
+  --yellow-50: #fdf6e3;
+  --yellow-100: #fcf0d0;
+  --yellow-200: #fbe9b9;
+  --yellow-300: #f8da8a;
+  --yellow-400: #fcca4a;
+  --yellow-500: #e8ab0d;
+  --yellow-600: #9a6f00;
+  --yellow-700: #745300;
+  --yellow-800: #422f00;
+  --yellow-900: #342600;
+
+  /* ── Brand ────────────────────────────────────────────────── */
+  --brand-lightning: #e1ff00;
+  --brand-gray-100: #f3f1ee;
+  --brand-gray-300: #cfc9bc;
+  --brand-gray-500: #7c7a6a;
+  --brand-gray-950: #11190c;
+  --bolt-black: #11190c;
+
+  /* ── Semantic: Surface ────────────────────────────────────── */
+  --surface-primary: var(--white);
+  --surface-primary-hovered: var(--gray-50);
+  --surface-primary-pressed: var(--gray-100);
+  --surface-secondary: var(--gray-25);
+  --surface-tertiary: var(--gray-50);
+  --surface-quaternary: var(--gray-100);
+  --surface-disabled: var(--gray-25);
+  --surface-inverse-primary: var(--gray-900);
+  --surface-inverse-secondary: var(--gray-800);
+  --surface-inverse-tertiary: var(--gray-700);
+  --surface-critical: var(--red-50);
+  --surface-success: var(--green-50);
+  --surface-warning: var(--yellow-50);
+  --surface-informative: var(--violet-50);
+  --surface-highlight: var(--blue-25);
+  --surface-app-bg: var(--gray-25);
+
+  /* ── Semantic: Content ────────────────────────────────────── */
+  --content-primary: var(--black);
+  --content-secondary: var(--gray-600);
+  --content-tertiary: var(--gray-500);
+  --content-disabled: var(--gray-400);
+  --content-placeholder: var(--gray-300);
+  --content-inverse-primary: var(--white);
+  --content-inverse-secondary: var(--gray-200);
+  --content-inverse-tertiary: var(--gray-400);
+  --content-critical: var(--red-500);
+  --content-success: var(--green-500);
+  --content-warning: var(--yellow-600);
+  --content-informative: var(--violet-500);
+  --content-interactive: var(--blue-500);
+  --content-interactive-on-surface: var(--blue-600);
+  --content-accent-on-color: var(--brand-lightning);
+  --content-on-color: var(--white);
+  --content-link: #006cff;
+
+  /* ── Semantic: Border ─────────────────────────────────────── */
+  --border-primary: var(--gray-400);
+  --border-secondary: var(--gray-200);
+  --border-tertiary: var(--gray-100);
+  --border-critical: var(--red-500);
+  --border-success: var(--green-500);
+  --border-warning: var(--yellow-600);
+  --border-informative: var(--violet-500);
+  --border-focus: var(--blue-500);
+  --border-inverse-primary: var(--gray-200);
+
+  /* ── Semantic: Button ─────────────────────────────────────── */
+  --btn-bg-primary: var(--bolt-black);
+  --btn-bg-primary-hover: var(--gray-700);
+  --btn-bg-primary-pressed: var(--black);
+  --btn-bg-primary-disabled: var(--gray-200);
+  --btn-fg-primary: var(--white);
+  --btn-fg-primary-hover: var(--brand-lightning);
+  --btn-bg-secondary: var(--white);
+  --btn-bg-secondary-hover: var(--gray-100);
+  --btn-fg-secondary: var(--gray-600);
+  --btn-bg-critical: var(--red-500);
+  --btn-bg-inverse-secondary: var(--bolt-black);
+
+  /* ── Semantic: Control ────────────────────────────────────── */
+  --control-bg-on: var(--bolt-black);
+  --control-bg-on-hover: var(--gray-600);
+  --control-bg-on-disabled: var(--gray-300);
+  --control-bg-off: var(--gray-400);
+  --control-bg-off-hover: var(--gray-500);
+  --control-bg-off-disabled: var(--gray-200);
+  --control-on-critical: var(--red-500);
+}

@@ -1,0 +1,107 @@
+/* ============================================================
+   Blitz — Checkbox
+   ============================================================ */
+
+.checkbox-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+
+/* ── Box ──────────────────────────────────────────────────── */
+.checkbox__box {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* offset down so the 16px box vertical-centers against the 24px line-height label */
+  margin-top: 4px;
+}
+
+.checkbox__box--m { width: 16px; height: 16px; }
+.checkbox__box--s { width: 14px; height: 14px; }
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox__input:disabled { cursor: not-allowed; }
+
+/* ── Visual box — uses inset shadow like Radio so the 2px stroke doesn't
+   shift layout when toggling. */
+.checkbox__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: var(--surface-primary);
+  box-shadow: inset 0 0 0 2px var(--border-primary);
+  color: var(--white);
+  transition:
+    background var(--duration-base) var(--ease-default),
+    box-shadow var(--duration-base) var(--ease-default);
+}
+
+.checkbox__check svg {
+  width: 75%;
+  height: 75%;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-default);
+}
+
+.checkbox__input:checked + .checkbox__check,
+.checkbox__input[data-indeterminate] + .checkbox__check {
+  background: var(--brand-gray-950);
+  box-shadow: inset 0 0 0 2px var(--brand-gray-950);
+}
+
+.checkbox__input:checked + .checkbox__check svg,
+.checkbox__input[data-indeterminate] + .checkbox__check svg {
+  opacity: 1;
+}
+
+.checkbox__input:focus-visible + .checkbox__check {
+  box-shadow:
+    inset 0 0 0 2px var(--brand-gray-950),
+    0 0 0 3px rgba(0, 108, 255, 0.25);
+}
+.checkbox__input:focus-visible:checked + .checkbox__check {
+  box-shadow:
+    inset 0 0 0 2px var(--brand-gray-950),
+    0 0 0 3px rgba(0, 108, 255, 0.25);
+}
+
+.checkbox-wrap:hover .checkbox__input:not(:disabled):not(:checked) + .checkbox__check {
+  background: var(--surface-tertiary);
+}
+
+.checkbox-wrap--disabled {
+  cursor: not-allowed;
+}
+.checkbox-wrap--disabled .checkbox__check {
+  box-shadow: inset 0 0 0 2px var(--border-secondary);
+}
+.checkbox-wrap--disabled .checkbox__input:checked + .checkbox__check {
+  background: var(--gray-300, #c4c3c0);
+  box-shadow: inset 0 0 0 2px var(--gray-300, #c4c3c0);
+}
+.checkbox-wrap--disabled .checkbox__label {
+  color: var(--content-disabled);
+}
+
+/* ── Label ────────────────────────────────────────────────── */
+.checkbox__label {
+  color: var(--content-primary);
+  font-size: var(--text-m);
+  line-height: var(--lh-m);
+}

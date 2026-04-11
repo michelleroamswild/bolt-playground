@@ -1,0 +1,69 @@
+/* ============================================================
+   Blitz Design System — Spacing, Radius, Shadow, Motion Tokens
+   ============================================================ */
+
+:root {
+  /* ── Spacing ──────────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Border Radius ────────────────────────────────────────── */
+  --radius-sm: 4px;       /* default / rectangular buttons */
+  --radius-chip: 5px;     /* input/filter chips */
+  --radius-md: 8px;       /* toggles, small badges */
+  --radius-pill-xs: 24px; /* pill button XS */
+  --radius-pill-s: 36px;  /* pill button S */
+  --radius-pill-m: 48px;  /* pill button M */
+  --radius-full: 9999px;  /* circular / fully rounded */
+  --radius-file: 3px;     /* file upload chips */
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-1:
+    0px 6px 8px rgba(25, 25, 25, 0.08),
+    0px 0px 3px rgba(25, 25, 25, 0.12),
+    0px 0px 1px rgba(25, 25, 25, 0.20);
+  --shadow-2:
+    0px 8px 16px rgba(25, 25, 25, 0.08),
+    0px 2px 10px rgba(25, 25, 25, 0.14),
+    0px 0px 1px rgba(25, 25, 25, 0.20);
+  --shadow-card:
+    0px 2px 6px rgba(109, 110, 111, 0.08);
+  --shadow-modal:
+    0px 48px 80px -20px rgba(0, 0, 0, 0.25);
+  --shadow-popover:
+    0px 8px 32px -16px rgba(0, 0, 0, 0.16),
+    0px 4px 16px -8px rgba(0, 0, 0, 0.10),
+    0px 2px 6px rgba(0, 0, 0, 0.12);
+  --shadow-toast:
+    0px 4px 8px -3px rgba(0, 0, 0, 0.40),
+    0px 16px 20px -8px rgba(0, 0, 0, 0.24);
+  --shadow-focus:
+    0 0 0 3px rgba(0, 108, 255, 0.25);
+
+  /* ── Motion ───────────────────────────────────────────────── */
+  --duration-fast: 100ms;
+  --duration-base: 150ms;
+  --duration-slow: 250ms;
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-Index ──────────────────────────────────────────────── */
+  --z-base: 0;
+  --z-raised: 100;
+  --z-dropdown: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+
+  /* ── Border widths ────────────────────────────────────────── */
+  --border-width: 1px;
+  --border-width-focus: 2px;
+}

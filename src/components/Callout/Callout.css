@@ -1,0 +1,85 @@
+/* ============================================================
+   Blitz — Callout Banner
+   ============================================================ */
+
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid transparent;
+}
+
+/* ── Sentiments ───────────────────────────────────────────── */
+.callout--success {
+  background: var(--surface-success);
+  border-color: var(--border-success);
+  color: var(--content-success);
+}
+
+.callout--warning {
+  background: var(--surface-warning);
+  border-color: var(--border-warning);
+  color: var(--content-warning);
+}
+
+.callout--error {
+  background: var(--surface-critical);
+  border-color: var(--border-critical);
+  color: var(--content-critical);
+}
+
+.callout--informative {
+  background: var(--surface-informative);
+  border-color: var(--border-informative);
+  color: var(--content-informative);
+}
+
+/* ── Layout: flush (no border/border-radius) ──────────────── */
+.callout--flush {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+/* ── Icon ─────────────────────────────────────────────────── */
+.callout__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.callout__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.callout__title {
+  color: inherit;
+}
+
+.callout__message {
+  color: var(--content-secondary);
+}
+
+.callout--error .callout__message,
+.callout--success .callout__message,
+.callout--warning .callout__message,
+.callout--informative .callout__message {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.callout__action {
+  margin-top: var(--space-1);
+}

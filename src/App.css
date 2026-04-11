@@ -1,0 +1,161 @@
+/* ============================================================
+   Blitz DS — App Shell
+   ============================================================ */
+
+/* ── Mode switcher bar ────────────────────────────────────── */
+.ds-mode-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-inverse-primary);
+  border-bottom: var(--border-width) solid var(--surface-inverse-secondary);
+  flex-shrink: 0;
+  z-index: var(--z-raised);
+}
+
+.ds-mode-bar__label {
+  color: var(--content-inverse-tertiary);
+}
+
+.ds-app {
+  min-height: 100vh;
+  background: var(--surface-app-bg);
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.ds-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-raised);
+  background: var(--surface-primary);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+  box-shadow: var(--shadow-card);
+}
+
+.ds-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+}
+
+/* ── Main ─────────────────────────────────────────────────── */
+.ds-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+/* ── Section ──────────────────────────────────────────────── */
+.ds-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.ds-section__title {
+  color: var(--content-primary);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+}
+
+.ds-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── Row ──────────────────────────────────────────────────── */
+.ds-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-row__label {
+  color: var(--content-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ds-row__items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ── Color swatches ───────────────────────────────────────── */
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 80px;
+}
+
+.swatch__color {
+  width: 80px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid rgba(0, 0, 0, 0.08);
+}
+
+.swatch__name {
+  color: var(--content-secondary);
+  font-weight: var(--fw-medium);
+}
+
+.swatch__value {
+  color: var(--content-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* ── Icon grid ────────────────────────────────────────────── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  width: 100%;
+}
+
+.icon-grid__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-2);
+  border: var(--border-width) solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--surface-primary);
+  color: var(--content-primary);
+  transition: background var(--duration-base) var(--ease-default), border-color var(--duration-base) var(--ease-default);
+}
+
+.icon-grid__cell:hover {
+  background: var(--surface-secondary);
+  border-color: var(--border-primary);
+}
+
+.icon-grid__label {
+  color: var(--content-tertiary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: center;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* ── Typography stack ─────────────────────────────────────── */
+.ds-type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

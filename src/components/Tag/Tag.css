@@ -1,0 +1,63 @@
+/* ============================================================
+   Blitz — Tag
+   ============================================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid transparent;
+  white-space: nowrap;
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+.tag--m {
+  height: 24px;
+  padding: 0 var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+}
+
+.tag--s {
+  height: 18px;
+  padding: 0 6px;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+/* ── Sentiments ───────────────────────────────────────────── */
+.tag--neutral     { background: var(--surface-tertiary);    color: var(--content-secondary); }
+.tag--success     { background: var(--surface-success);     color: var(--content-success); }
+.tag--warning     { background: var(--surface-warning);     color: var(--content-warning); }
+.tag--error       { background: var(--surface-critical);    color: var(--content-critical); }
+.tag--informative { background: var(--surface-informative); color: var(--content-informative); }
+.tag--highlight   { background: var(--surface-highlight);   color: var(--content-interactive); }
+.tag--quiet       { background: transparent; color: var(--content-tertiary); }
+
+/* ── Outline variant ──────────────────────────────────────── */
+.tag--outline.tag--neutral     { border-color: var(--border-secondary); background: transparent; }
+.tag--outline.tag--success     { border-color: var(--border-success);   background: transparent; }
+.tag--outline.tag--warning     { border-color: var(--border-warning);   background: transparent; }
+.tag--outline.tag--error       { border-color: var(--border-critical);  background: transparent; }
+.tag--outline.tag--informative { border-color: var(--border-informative); background: transparent; }
+.tag--outline.tag--highlight   { border-color: var(--border-focus);     background: transparent; }
+
+/* ── Inverse variant ──────────────────────────────────────── */
+.tag--inverse {
+  background: var(--surface-inverse-primary);
+  color: var(--content-inverse-primary);
+}
+
+/* ── Icon slots ───────────────────────────────────────────── */
+.tag__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag__icon svg {
+  width: 12px;
+  height: 12px;
+}

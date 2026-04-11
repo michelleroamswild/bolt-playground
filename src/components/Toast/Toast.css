@@ -1,0 +1,102 @@
+/* ============================================================
+   Blitz — Toast
+   ============================================================ */
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-toast);
+  border: var(--border-width) solid var(--border-tertiary);
+  min-width: 280px;
+  max-width: 400px;
+  animation: toast-in var(--duration-slow) var(--ease-spring);
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Sentiments ───────────────────────────────────────────── */
+.toast--success .toast__icon { color: var(--content-success); }
+.toast--error   .toast__icon { color: var(--content-critical); }
+.toast--warning .toast__icon { color: var(--content-warning); }
+
+/* ── Inverse (dark) ───────────────────────────────────────── */
+.toast--inverse {
+  background: var(--surface-inverse-primary);
+  border-color: var(--surface-inverse-secondary);
+  box-shadow: var(--shadow-toast);
+}
+
+.toast--inverse .toast__message    { color: var(--content-inverse-primary); }
+.toast--inverse .toast__description { color: var(--content-inverse-secondary); }
+.toast--inverse .toast__dismiss    { color: var(--content-inverse-tertiary); }
+.toast--inverse .toast__action     { color: var(--content-accent-on-color); }
+
+/* ── Icon ─────────────────────────────────────────────────── */
+.toast__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Content ──────────────────────────────────────────────── */
+.toast__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toast__message     { color: var(--content-primary); }
+.toast__description { color: var(--content-tertiary); }
+
+/* ── Action ───────────────────────────────────────────────── */
+.toast__action {
+  color: var(--content-interactive);
+  flex-shrink: 0;
+  padding: 0;
+  margin-left: var(--space-1);
+  white-space: nowrap;
+}
+
+.toast__action:hover {
+  text-decoration: underline;
+}
+
+/* ── Dismiss ──────────────────────────────────────────────── */
+.toast__dismiss {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--content-tertiary);
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-base) var(--ease-default);
+}
+
+.toast__dismiss:hover {
+  color: var(--content-primary);
+}
+
+/* ── Container ────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast-container .toast {
+  pointer-events: all;
+}

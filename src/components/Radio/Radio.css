@@ -1,0 +1,82 @@
+/* ============================================================
+   Blitz — Radio
+   ============================================================ */
+
+.radio-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-wrap--disabled {
+  cursor: not-allowed;
+}
+.radio-wrap--disabled .radio__label {
+  color: var(--content-disabled);
+}
+
+/* ── Circle ───────────────────────────────────────────────── */
+.radio__circle {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio__circle--m { width: 16px; height: 16px; }
+.radio__circle--s { width: 14px; height: 14px; }
+
+.radio__input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+  margin: 0;
+  border-radius: 50%;
+}
+
+.radio__input:disabled { cursor: not-allowed; }
+
+/* ── Visual ring — border thickness shifts for selected state ── */
+.radio__dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface-primary);
+  box-shadow: inset 0 0 0 2px var(--border-primary);
+  transition:
+    background var(--duration-base) var(--ease-default),
+    box-shadow var(--duration-base) var(--ease-default);
+}
+
+.radio__input:checked + .radio__dot {
+  box-shadow: inset 0 0 0 5px var(--brand-gray-950);
+}
+
+.radio-wrap:hover .radio__input:not(:disabled):not(:checked) + .radio__dot {
+  background: var(--surface-tertiary);
+}
+
+.radio__input:focus-visible + .radio__dot {
+  box-shadow: inset 0 0 0 2px var(--brand-gray-950), 0 0 0 3px rgba(0, 108, 255, 0.25);
+}
+.radio__input:focus-visible:checked + .radio__dot {
+  box-shadow: inset 0 0 0 5px var(--brand-gray-950), 0 0 0 3px rgba(0, 108, 255, 0.25);
+}
+
+.radio-wrap--disabled .radio__dot {
+  box-shadow: inset 0 0 0 2px var(--border-secondary);
+}
+.radio-wrap--disabled .radio__input:checked + .radio__dot {
+  box-shadow: inset 0 0 0 5px var(--gray-300, #c4c3c0);
+}
+
+/* ── Label ────────────────────────────────────────────────── */
+.radio__label {
+  color: var(--content-primary);
+  padding-top: 1px;
+}

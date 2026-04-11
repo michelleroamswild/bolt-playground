@@ -1,0 +1,96 @@
+/* ============================================================
+   Blitz — Modal
+   ============================================================ */
+
+.modal {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0;
+  box-shadow: var(--shadow-modal);
+  max-height: calc(100vh - var(--space-16));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+.modal--s { width: 400px; max-width: calc(100vw - var(--space-8)); }
+.modal--m { width: 560px; max-width: calc(100vw - var(--space-8)); }
+.modal--l { width: 720px; max-width: calc(100vw - var(--space-8)); }
+
+/* ── Backdrop ─────────────────────────────────────────────── */
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* ── Animation ────────────────────────────────────────────── */
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal[open] {
+  animation: modal-in var(--duration-slow) var(--ease-spring);
+}
+
+/* ── Inner layout ─────────────────────────────────────────── */
+.modal__inner {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+  flex-shrink: 0;
+}
+
+.modal__title {
+  color: var(--content-primary);
+}
+
+.modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--content-tertiary);
+  transition: background var(--duration-base) var(--ease-default),
+              color var(--duration-base) var(--ease-default);
+}
+
+.modal__close:hover {
+  background: var(--surface-primary-hovered);
+  color: var(--content-primary);
+}
+
+.modal__close:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.modal__body {
+  padding: var(--space-5);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-top: var(--border-width) solid var(--border-tertiary);
+  flex-shrink: 0;
+}

@@ -1,0 +1,85 @@
+/* ============================================================
+   Screen — Checkout
+   ============================================================ */
+
+.screen-checkout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+}
+
+.checkout-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── Setting card ─────────────────────────────────────────── */
+.setting-card {
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.setting-card__header {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+  background: var(--surface-secondary);
+}
+
+.setting-card__title { color: var(--content-secondary); }
+
+.setting-card__body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Setting row ──────────────────────────────────────────── */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+}
+
+.setting-row:last-child { border-bottom: none; }
+
+.setting-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-row__label { color: var(--content-primary); }
+.setting-row__desc  { color: var(--content-tertiary); }
+
+.setting-row__control {
+  flex-shrink: 0;
+}
+
+/* ── Capture mode options ─────────────────────────────────── */
+.capture-mode-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.capture-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-tertiary);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-default);
+}
+
+.capture-option:last-child { border-bottom: none; }
+.capture-option:hover { background: var(--surface-secondary); }
+.capture-option--active { background: var(--surface-highlight); }

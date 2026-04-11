@@ -1,0 +1,168 @@
+/* ============================================================
+   Blitz Prototype — Shell Layout
+   White app bar + white sidebar (matches Figma exactly)
+   ============================================================ */
+
+.proto-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--surface-secondary, #fafafa);
+}
+
+/* ── App Bar (72px) ───────────────────────────────────────── */
+.proto-appbar {
+  height: 72px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 24px;
+  background: var(--surface-primary, #ffffff);
+  border-bottom: 1px solid #dad9d7;
+}
+
+.proto-appbar__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proto-appbar__bolt-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #1f211c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.proto-appbar__account {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.proto-appbar__account:hover {
+  background: #f6f5f4;
+}
+
+.proto-appbar__account-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #454644;
+  line-height: 24px;
+}
+
+.proto-appbar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proto-appbar__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  color: #454644;
+}
+
+.proto-appbar__icon-btn:hover {
+  background: #f6f5f4;
+}
+
+.proto-appbar__user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.proto-appbar__user:hover {
+  background: #f6f5f4;
+}
+
+.proto-appbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1f211c;
+  color: #e1ff00;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.proto-appbar__username {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 22px;
+  padding: 0 4px 0 8px;
+}
+
+/* ── Body (sidebar + main) ───────────────────────────────── */
+.proto-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── White sidebar (272px) ────────────────────────────────── */
+.proto-sidebar {
+  width: 272px;
+  flex-shrink: 0;
+  background: var(--surface-primary, #ffffff);
+  border-right: 1px solid #dad9d7;
+  overflow-y: auto;
+  padding-top: 24px;
+}
+
+.proto-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+/* ── Nav groups ───────────────────────────────────────────── */
+.proto-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proto-nav-group__label {
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6f6f67;
+  text-transform: uppercase;
+  line-height: 16px;
+}
+
+/* ── Main content ─────────────────────────────────────────── */
+.proto-main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}

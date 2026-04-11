@@ -1,0 +1,478 @@
+/* ============================================================
+   Onboarding — shared layout with diagonal brand pattern
+   ============================================================ */
+
+.ob-layout {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  background: var(--brand-gray-100);
+  /* NO overflow:hidden here — that would create a scroll-container
+     context that breaks position:sticky on the logo wrapper.
+     Background wedges are clipped by .ob-layout__bg instead. */
+}
+
+/* Lightning-bolt background: two PNG wedges positioned at the Figma insets.
+   Together they form a zigzag that evokes a lightning bolt cutting across the page. */
+.ob-layout__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.ob-layout__bg-top,
+.ob-layout__bg-bot {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* Top wedge anchored near top, nudged further left */
+.ob-layout__bg-top {
+  top: -14%;
+  left: -18%;
+}
+/* Bottom wedge anchored near bottom, nudged up + slightly left */
+.ob-layout__bg-bot {
+  bottom: -20%;
+  left: 3%;
+}
+
+/* Logo top-left — wrapped in a zero-height sticky positioner so it
+   stays pinned to the top of the onboarding scroll area while the
+   content scrolls beneath it. */
+.ob-layout__logo-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.ob-layout__logo {
+  position: absolute;
+  top: 40px;
+  left: 48px;
+  height: 30px;
+  width: auto;
+  display: block;
+  pointer-events: auto;
+}
+
+/* Content column: the card + footer text, centered horizontally,
+   with a top pad to push it below the logo row. */
+.ob-layout__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 144px 24px 64px;
+}
+
+/* White form card */
+.ob-card {
+  background: var(--surface-primary);
+  border-radius: 8px;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.16);
+  width: 614px;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ob-card__header {
+  border-bottom: 1px solid var(--border-secondary);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ob-card__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ob-card__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  margin: -6px -8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  color: var(--content-tertiary);
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--duration-base) var(--ease-default),
+    color var(--duration-base) var(--ease-default);
+}
+.ob-card__back:hover {
+  background-color: var(--surface-tertiary);
+  color: var(--content-primary);
+}
+.ob-card__back:active {
+  background-color: var(--gray-100, #ededea);
+}
+.ob-card__back:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.ob-card__step {
+  color: var(--content-tertiary);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ob-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.ob-card__subtitle {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-secondary);
+  margin: 0;
+}
+
+.ob-card__body {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Section within card body */
+.ob-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.ob-section__heading {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.ob-section__description {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--content-secondary);
+  margin: 0 0 8px;
+}
+
+.ob-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+.ob-row > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Verify Information — section group */
+.ob-verify-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.ob-verify-group__title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0.4px;
+  color: var(--content-primary);
+  margin: 0;
+}
+.ob-verify-subgroup__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+/* Two-column attribute row */
+.ob-attr-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+}
+.ob-attr-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ob-attr-cell__label {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  color: var(--content-tertiary);
+}
+.ob-attr-cell__value {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-primary);
+  word-break: break-word;
+}
+
+/* Attestation block — two checkboxes inside a tinted container */
+.ob-attest-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.ob-attest-block .checkbox-wrap {
+  width: 100%;
+  padding: 16px;
+  background: var(--surface-tertiary);
+  align-items: flex-start;
+}
+.ob-attest-block .checkbox__label {
+  font-size: 14px;
+  line-height: 20px;
+}
+.ob-attest-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Fixed-width fields in address row */
+.ob-field--state {
+  flex: 0 0 140px;
+}
+.ob-field--zip {
+  flex: 0 0 120px;
+}
+
+/* Read-only field display (label + value text, no input) */
+.ob-readonly-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+.ob-readonly-field__label {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-primary);
+}
+.ob-readonly-field__value {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-tertiary);
+  word-break: break-all;
+}
+
+/* Selector setting — title + description above an input/combobox */
+.ob-selector-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.ob-selector-setting__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.ob-selector-setting__title {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-primary);
+  margin: 0;
+}
+.ob-selector-setting__desc {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-tertiary);
+  margin: 0;
+}
+
+/* Package selection list (Screen 0b) */
+.ob-package-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.ob-package {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-base) var(--ease-default),
+    background-color var(--duration-base) var(--ease-default);
+}
+.ob-package:hover {
+  border-color: var(--content-tertiary);
+  background-color: var(--surface-tertiary);
+}
+.ob-package[data-selected='true'] {
+  border-color: var(--content-primary);
+  background-color: var(--surface-primary);
+}
+.ob-package__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ob-package__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--content-primary);
+}
+.ob-package__desc {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--content-secondary);
+}
+.ob-package__graphic {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: block;
+  object-fit: contain;
+}
+
+/* Processing (loading) screen */
+.ob-processing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 72px 32px;
+}
+.ob-processing__spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--border-secondary);
+  border-top-color: var(--brand-gray-950);
+  animation: ob-spin 1s linear infinite;
+}
+@keyframes ob-spin {
+  to { transform: rotate(360deg); }
+}
+.ob-processing__label {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-primary);
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+/* Success screen — What's Next intro block */
+.ob-whats-next {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.ob-whats-next__heading {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--content-primary);
+  margin: 0;
+}
+.ob-whats-next__intro {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+/* Step checklist */
+.ob-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ob-step {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  width: 100%;
+}
+.ob-step__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0;
+  color: var(--content-tertiary);
+}
+.ob-step[data-done='true'] .ob-step__icon {
+  color: var(--content-success, #00ae49);
+}
+.ob-step__content {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ob-step__title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--content-primary);
+  margin: 0;
+}
+.ob-step__desc {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--content-secondary);
+  margin: 0;
+}
+
+/* Footer note below card */
+.ob-footer-note {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--content-tertiary);
+  text-align: center;
+  margin: 0;
+}

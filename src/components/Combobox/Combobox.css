@@ -1,0 +1,166 @@
+/* ============================================================
+   Blitz Design System — Combobox (styled custom dropdown)
+   ============================================================ */
+
+.combobox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.combobox__label {
+  color: var(--content-primary);
+}
+
+/* ── Trigger — matches input visual ────────────────────────── */
+.combobox__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-3);
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--text-m);
+  line-height: var(--lh-m);
+  color: var(--content-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+.combobox__trigger:hover:not(:disabled) {
+  border-color: var(--content-secondary);
+}
+.combobox__trigger:focus-visible,
+.combobox[data-open='true'] .combobox__trigger {
+  outline: none;
+  border-color: var(--border-focus);
+}
+.combobox__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.combobox__trigger-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.combobox__trigger-icon > img,
+.combobox__trigger-icon > svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.combobox__trigger-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.combobox__trigger-label--placeholder {
+  color: var(--content-tertiary);
+}
+.combobox__trigger-chevron {
+  flex-shrink: 0;
+  color: var(--content-secondary);
+  transition: transform var(--duration-base) var(--ease-default);
+}
+.combobox[data-open='true'] .combobox__trigger-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Popover list ──────────────────────────────────────────── */
+/* Position is set inline by JS (fixed, beneath trigger) so the popover
+   can render via portal and escape clipping ancestors. */
+.combobox__popover {
+  z-index: var(--z-dropdown);
+  background: var(--surface-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-popover);
+  padding: var(--space-2);
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  animation: combobox-pop var(--duration-base) var(--ease-default);
+}
+
+@keyframes combobox-pop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Menu item ─────────────────────────────────────────────── */
+.combobox__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-2);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--text-m);
+  line-height: var(--lh-m);
+  color: var(--content-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+.combobox__item:hover,
+.combobox__item[data-active='true'] {
+  background: var(--surface-tertiary);
+}
+.combobox__item[data-selected='true'],
+.combobox__item[data-selected='true']:hover,
+.combobox__item[data-selected='true'][data-active='true'] {
+  background: var(--surface-highlight);
+  color: var(--content-interactive-on-surface);
+}
+.combobox__item-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.combobox__item-icon > img,
+.combobox__item-icon > svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.combobox__item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.combobox__item-check {
+  flex-shrink: 0;
+  color: var(--content-interactive-on-surface);
+  opacity: 0;
+}
+.combobox__item[data-selected='true'] .combobox__item-check {
+  opacity: 1;
+}
+
+.combobox__hint {
+  color: var(--content-tertiary);
+}
+.combobox__hint--error   { color: var(--content-critical, #e62728); }
+.combobox__hint--warning { color: var(--content-warning, #9a6f00); }

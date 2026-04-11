@@ -1,0 +1,123 @@
+/* ============================================================
+   Blitz — Input
+   ============================================================ */
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.input-label {
+  color: var(--content-secondary);
+}
+
+/* ── Field container ──────────────────────────────────────── */
+.input-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--surface-primary);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-primary);
+  transition: border-color var(--duration-base) var(--ease-default);
+  gap: var(--space-2);
+}
+
+.input-field:hover:not(.input-field--disabled):not(.input-field--error):not(.input-field--warning) {
+  border-color: var(--content-secondary);
+}
+
+.input-field:focus-within {
+  border-color: var(--border-focus);
+}
+
+/* ── Outline vs Flat ──────────────────────────────────────── */
+.input-field--flat {
+  border-color: transparent;
+  border-bottom-color: var(--border-secondary);
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.input-field--flat:focus-within {
+  box-shadow: none;
+  border-bottom-color: var(--border-focus);
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+.input-field--m {
+  height: 48px;
+  padding: 0 var(--space-3);
+}
+
+.input-field--s {
+  height: 36px;
+  padding: 0 var(--space-2);
+}
+
+/* ── Status ───────────────────────────────────────────────── */
+.input-field--error {
+  border-color: var(--border-critical);
+}
+
+.input-field--warning {
+  border-color: var(--border-warning);
+}
+
+/* ── Disabled ─────────────────────────────────────────────── */
+.input-field--disabled {
+  background: var(--surface-disabled);
+  border-color: var(--border-secondary);
+  cursor: not-allowed;
+}
+
+.input-field--disabled .input-field__control {
+  cursor: not-allowed;
+  color: var(--content-disabled);
+}
+
+/* ── Control ──────────────────────────────────────────────── */
+.input-field__control {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-m);
+  font-weight: var(--fw-regular);
+  color: var(--content-primary);
+  min-width: 0;
+}
+
+.input-field--s .input-field__control {
+  font-size: var(--text-s);
+}
+
+.input-field__control::placeholder {
+  color: var(--content-placeholder);
+}
+
+/* ── Icon slots ───────────────────────────────────────────── */
+.input-field__icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--content-tertiary);
+  flex-shrink: 0;
+}
+
+.input-field__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Hint ─────────────────────────────────────────────────── */
+.input-hint {
+  color: var(--content-tertiary);
+}
+
+.input-hint--error   { color: var(--content-critical); }
+.input-hint--warning { color: var(--content-warning); }

@@ -1,0 +1,104 @@
+/* ============================================================
+   Blitz — Select / Dropdown
+   ============================================================ */
+
+.select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.select-label {
+  color: var(--content-secondary);
+}
+
+/* ── Field container ──────────────────────────────────────── */
+.select-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: var(--surface-primary);
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-primary);
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+
+.select-field:hover:not(.select-field--disabled):not(.select-field--error):not(.select-field--warning) {
+  border-color: var(--content-secondary);
+}
+
+.select-field:focus-within {
+  border-color: var(--border-focus);
+}
+
+/* ── Flat variant ─────────────────────────────────────────── */
+.select-field--flat {
+  border-color: transparent;
+  border-bottom-color: var(--border-secondary);
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.select-field--flat:focus-within {
+  box-shadow: none;
+  border-bottom-color: var(--border-focus);
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+.select-field--xs { height: 28px; padding: 0 var(--space-2); }
+.select-field--s  { height: 36px; padding: 0 var(--space-3); }
+.select-field--m  { height: 48px; padding: 0 var(--space-3); }
+
+/* ── Status ───────────────────────────────────────────────── */
+.select-field--error   { border-color: var(--border-critical); }
+.select-field--warning { border-color: var(--border-warning); }
+
+/* ── Disabled ─────────────────────────────────────────────── */
+.select-field--disabled {
+  background: var(--surface-disabled);
+  border-color: var(--border-tertiary);
+  pointer-events: none;
+}
+
+.select-field--disabled .select-field__control {
+  color: var(--content-disabled);
+}
+
+/* ── Control ──────────────────────────────────────────────── */
+.select-field__control {
+  flex: 1;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-m);
+  font-weight: var(--fw-regular);
+  color: var(--content-primary);
+  cursor: pointer;
+  padding-right: var(--space-5);
+  min-width: 0;
+  width: 100%;
+}
+
+.select-field--xs .select-field__control,
+.select-field--s  .select-field__control { font-size: var(--text-s); }
+
+/* ── Chevron icon ─────────────────────────────────────────── */
+.select-field__chevron {
+  position: absolute;
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  color: var(--content-tertiary);
+  pointer-events: none;
+}
+
+/* ── Hint ─────────────────────────────────────────────────── */
+.select-hint           { color: var(--content-tertiary); }
+.select-hint--error    { color: var(--content-critical); }
+.select-hint--warning  { color: var(--content-warning); }

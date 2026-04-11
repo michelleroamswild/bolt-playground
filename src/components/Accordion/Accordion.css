@@ -1,0 +1,88 @@
+/* ============================================================
+   Blitz — Accordion
+   ============================================================ */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width) solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* ── Item ─────────────────────────────────────────────────── */
+.accordion-item {
+  border-bottom: var(--border-width) solid var(--border-secondary);
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* ── Trigger ──────────────────────────────────────────────── */
+.accordion-item__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: var(--surface-primary);
+  transition: background var(--duration-base) var(--ease-default);
+  cursor: pointer;
+}
+
+.accordion-item--m .accordion-item__trigger {
+  padding: var(--space-4);
+  min-height: 52px;
+}
+
+.accordion-item--s .accordion-item__trigger {
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+}
+
+.accordion-item__trigger:hover:not(:disabled) {
+  background: var(--surface-primary-hovered);
+}
+
+.accordion-item__trigger:focus-visible {
+  box-shadow: inset var(--shadow-focus);
+  outline: none;
+}
+
+.accordion-item--disabled .accordion-item__trigger {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Title ────────────────────────────────────────────────── */
+.accordion-item__title {
+  color: var(--content-primary);
+  flex: 1;
+}
+
+/* ── Chevron ──────────────────────────────────────────────── */
+.accordion-item__chevron {
+  display: inline-flex;
+  color: var(--content-tertiary);
+  transition: transform var(--duration-base) var(--ease-default);
+  flex-shrink: 0;
+}
+
+.accordion-item--open .accordion-item__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Panel ────────────────────────────────────────────────── */
+.accordion-item__panel {
+  overflow: hidden;
+}
+
+.accordion-item__panel[hidden] {
+  display: none;
+}
+
+.accordion-item__content {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--content-secondary);
+}

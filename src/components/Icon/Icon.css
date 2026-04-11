@@ -1,0 +1,15 @@
+/* ============================================================
+   Blitz Design System — Icon
+   ============================================================ */
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  color: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+}
+.icon--inline {
+  vertical-align: -0.15em;
+}

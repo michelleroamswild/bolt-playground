@@ -1,0 +1,608 @@
+/* ============================================================
+   Branding & Styling — matches Figma node 1619-68067 exactly
+   ============================================================ */
+
+.branding-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-secondary, #fafafa);
+  overflow: hidden;
+}
+
+/* ── Page header ──────────────────────────────────────────── */
+.branding-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  background: var(--surface-primary, #ffffff);
+  border-bottom: 1px solid #dad9d7;
+  flex-shrink: 0;
+}
+
+.branding-page-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.branding-page-header__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 32px;
+}
+
+.branding-store-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 8px 12px;
+  border: 1px solid #9e9e99;
+  border-radius: 4px;
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.branding-store-dropdown:hover {
+  background: #fafafa;
+}
+
+.branding-edit-btn {
+  padding: 8px 12px;
+  background: #11190c;
+  color: #ffffff;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.branding-edit-btn:hover {
+  background: #2d302c;
+}
+
+/* ── Preview area (scrollable) ────────────────────────────── */
+.branding-preview-area {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px 24px;
+}
+
+/* ── Dark overlay card ────────────────────────────────────── */
+.branding-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25), 0 3px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  overflow: hidden;
+  max-width: 949px;
+  width: 100%;
+}
+
+/* ── Left: checkout form ──────────────────────────────────── */
+.checkout-panel {
+  flex: 1;
+  background: #ffffff;
+  padding: 38px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-panel__inner {
+  width: 442px;
+  max-width: 100%;
+}
+
+/* ── Right: order summary ─────────────────────────────────── */
+.summary-panel {
+  width: 452px;
+  flex-shrink: 0;
+  background: var(--surface-secondary, #fafafa);
+  padding: 64px 48px;
+}
+
+/* ── Bolt logo ────────────────────────────────────────────── */
+.checkout-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 17px;
+}
+
+/* ── Progress bar / step tabs ─────────────────────────────── */
+.checkout-progress {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.checkout-steps {
+  display: flex;
+}
+
+.checkout-step {
+  flex: 1;
+  padding: 8px 0;
+  text-align: center;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 20px;
+}
+
+.checkout-progress-bar {
+  height: 4px;
+  background: #f6f5f4;
+  overflow: hidden;
+}
+
+.checkout-progress-bar__fill {
+  height: 100%;
+  background: #000000;
+  transition: width 300ms ease;
+}
+
+/* ── Form sections ────────────────────────────────────────── */
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding-bottom: 24px;
+}
+
+.checkout-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-section__label {
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  line-height: 24px;
+}
+
+/* ── Flat input (gray bg, rounded, no border) ─────────────── */
+.checkout-flat-input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+  background: #f6f5f4;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+.checkout-flat-input::placeholder {
+  color: #6f6f67;
+}
+
+.checkout-flat-input:focus {
+  box-shadow: 0 0 0 2px #006dff;
+}
+
+/* ── Field layouts ────────────────────────────────────────── */
+.checkout-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkout-row-2 {
+  display: flex;
+  gap: 16px;
+}
+
+.checkout-row-2 > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-row-3 {
+  display: flex;
+  gap: 16px;
+}
+
+.checkout-row-3 > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Phone field ──────────────────────────────────────────── */
+.checkout-phone-field {
+  display: flex;
+  align-items: center;
+  background: #f6f5f4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.checkout-phone-field:focus-within {
+  box-shadow: 0 0 0 2px #006dff;
+}
+
+.checkout-phone__selector {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 8px 12px 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: #6f6f67;
+}
+
+.checkout-phone__divider {
+  width: 1px;
+  height: 25px;
+  background: #dad9d7;
+  flex-shrink: 0;
+}
+
+.checkout-phone__input {
+  flex: 1;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.checkout-phone__input::placeholder {
+  color: #6f6f67;
+}
+
+/* ── Flat dropdown ────────────────────────────────────────── */
+.checkout-flat-dropdown {
+  position: relative;
+  background: #f6f5f4;
+  border-radius: 4px;
+}
+
+.checkout-flat-dropdown:focus-within {
+  box-shadow: 0 0 0 2px #006dff;
+}
+
+.checkout-flat-dropdown__sup {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6f6f67;
+  line-height: 16px;
+  pointer-events: none;
+}
+
+.checkout-flat-dropdown select {
+  appearance: none;
+  width: 100%;
+  padding: 24px 36px 4px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkout-flat-dropdown__chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6f6f67;
+  pointer-events: none;
+}
+
+/* Simple flat dropdown (State) */
+.checkout-flat-select {
+  position: relative;
+  background: #f6f5f4;
+  border-radius: 4px;
+}
+
+.checkout-flat-select select {
+  appearance: none;
+  width: 100%;
+  padding: 12px 36px 12px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6f6f67;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkout-flat-select__chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6f6f67;
+  pointer-events: none;
+}
+
+/* ── Apartment expandable ─────────────────────────────────── */
+.checkout-add-apt {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: #000000;
+  cursor: pointer;
+}
+
+.checkout-add-apt:hover {
+  text-decoration: underline;
+}
+
+/* ── Checkbox row ─────────────────────────────────────────── */
+.checkout-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkout-checkbox-box {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkout-checkbox-box svg {
+  color: #ffffff;
+}
+
+.checkout-checkbox-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+}
+
+/* ── Continue CTA (pill) ──────────────────────────────────── */
+.checkout-cta-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.checkout-cta {
+  width: 100%;
+  padding: 12px 20px;
+  background: #11190c;
+  color: #ffffff;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 48px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.checkout-cta:hover {
+  background: #2d302c;
+}
+
+.checkout-exit {
+  padding: 16px 8px;
+  font-family: 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: #6f6f67;
+  cursor: pointer;
+}
+
+.checkout-exit:hover {
+  text-decoration: underline;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.checkout-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 30px;
+  margin-top: auto;
+}
+
+.checkout-footer__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkout-footer__powered {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #9e9e99;
+}
+
+.checkout-footer__right {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #9e9e99;
+  text-align: right;
+}
+
+/* ── Order Summary ────────────────────────────────────────── */
+.order-summary__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 24px;
+  margin-bottom: 24px;
+}
+
+.order-summary__item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.order-summary__item-img {
+  width: 72px;
+  height: 72px;
+  border: 1px solid #dad9d7;
+  border-radius: 4px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.order-summary__item-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.order-summary__item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-summary__item-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.order-summary__item-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #121212;
+  line-height: 24px;
+}
+
+.order-summary__item-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #121212;
+  line-height: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.order-summary__item-qty {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6f6f67;
+  line-height: 20px;
+}
+
+/* ── Promo accordions (blue, with chevron_right) ──────────── */
+.order-summary__promos {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-summary__promo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 0;
+  border-top: 1px solid #dad9d7;
+  cursor: pointer;
+}
+
+.order-summary__promo-label {
+  font-family: 'SF Pro Display', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #006dff;
+}
+
+.order-summary__promo svg {
+  color: #006dff;
+}
+
+/* ── Ledger rows ──────────────────────────────────────────── */
+.order-summary__ledger-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #454644;
+  line-height: 24px;
+}
+
+.order-summary__ledger-item:first-child {
+  border-top: 1px solid #dad9d7;
+  padding-top: 16px;
+}
+
+.order-summary__total {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #dad9d7;
+  padding-top: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 24px;
+}
