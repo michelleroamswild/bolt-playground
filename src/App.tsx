@@ -35,6 +35,26 @@ function Swatch({ name, value }: { name: string; value: string }) {
   );
 }
 
+// ── Prototype chrome ────────────────────────────────────────
+// Floats the dark mode bar OFF the design — only reveals it when the user
+// hovers a thin trigger zone at the top of the viewport.
+function PrototypeChrome({ label, onExit, children }: { label: string; onExit: () => void; children: React.ReactNode }) {
+  const [showBar, setShowBar] = useState(false);
+  return (
+    <div style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}>
+      <div className="ds-mode-bar-trigger" onMouseEnter={() => setShowBar(true)} />
+      <div
+        className={`ds-mode-bar ds-mode-bar--floating${showBar ? ' ds-mode-bar--visible' : ''}`}
+        onMouseLeave={() => setShowBar(false)}
+      >
+        <Button variant="tertiary" size="xs" onClick={onExit}>← Design System</Button>
+        <span className="text-xs-medium ds-mode-bar__label">{label}</span>
+      </div>
+      <div style={{ height: '100%', overflow: 'auto' }}>{children}</div>
+    </div>
+  );
+}
+
 // ── App ─────────────────────────────────────────────────────
 export default function App() {
   const initialHash = window.location.hash;
@@ -56,31 +76,21 @@ export default function App() {
   const dismissToast = (id: string) =>
     setToasts(t => t.filter(x => x.id !== id));
 
+  const exitToDS = () => { window.location.hash = ''; setMode('ds'); };
+
   if (mode === 'prototype') {
     return (
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <div className="ds-mode-bar">
-          <Button variant="tertiary" size="xs" onClick={() => { window.location.hash = ''; setMode('ds'); }}>← Design System</Button>
-          <span className="text-xs-medium ds-mode-bar__label">Bolt Configuration — Prototype</span>
-        </div>
-        <div style={{ flex: 1, overflow: 'hidden' }}>
-          <Prototype />
-        </div>
-      </div>
+      <PrototypeChrome label="Bolt Configuration — Prototype" onExit={exitToDS}>
+        <Prototype />
+      </PrototypeChrome>
     );
   }
 
   if (mode === 'onboarding') {
     return (
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <div className="ds-mode-bar">
-          <Button variant="tertiary" size="xs" onClick={() => { window.location.hash = ''; setMode('ds'); }}>← Design System</Button>
-          <span className="text-xs-medium ds-mode-bar__label">Onboarding Acceleration — Prototype</span>
-        </div>
-        <div style={{ flex: 1, overflow: 'auto' }}>
-          <OnboardingFlow />
-        </div>
-      </div>
+      <PrototypeChrome label="Onboarding Acceleration — Prototype" onExit={exitToDS}>
+        <OnboardingFlow />
+      </PrototypeChrome>
     );
   }
 

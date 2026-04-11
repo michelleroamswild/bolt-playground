@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ReactElement } from 'react';
 import { Layout } from './Layout';
 import { BrandingStyling } from './screens/BrandingStyling';
 import { EditBranding } from './screens/EditBranding';
@@ -30,7 +31,7 @@ export function Prototype() {
     return <EditBranding onExit={() => setEditing(false)} />;
   }
 
-  const content: Record<Screen, JSX.Element> = {
+  const content: Record<Screen, ReactElement> = {
     'home':              <Overview />,
     'analytics':         <ComingSoon title="Analytics" />,
     'checkout':          <Checkout />,

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { NavLink } from './NavLink';
 import './Layout.css';
 
@@ -39,7 +39,7 @@ const NAV_GROUPS = [
 ];
 
 // Simple icon map using SVG
-const ICONS: Record<string, JSX.Element> = {
+const ICONS: Record<string, ReactElement> = {
   home:          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8.5 10 2l7 6.5V17a1.5 1.5 0 0 1-1.5 1.5h-3V12.5h-5v6H4.5A1.5 1.5 0 0 1 3 17V8.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg>,
   chart_bar:     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="10" width="4" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="8" y="6" width="4" height="11" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="14" y="3" width="4" height="14" rx="1" stroke="currentColor" strokeWidth="1.5"/></svg>,
   shopping_bag:  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6.5 7V5a3.5 3.5 0 0 1 7 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><rect x="3" y="7" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5"/></svg>,
