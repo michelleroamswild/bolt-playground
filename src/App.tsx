@@ -676,7 +676,7 @@ function OverviewPreview({ id }: { id: string }) {
         </div>
       );
     case 'callouts':
-      return <div style={{ width: '100%' }}><Callout sentiment="informative" title="Heads up" /></div>;
+      return <div style={{ width: '100%' }}><Callout sentiment="informative" title="Heads up">Inline message.</Callout></div>;
     case 'accordion':
       return (
         <div style={{ width: '100%' }}>
