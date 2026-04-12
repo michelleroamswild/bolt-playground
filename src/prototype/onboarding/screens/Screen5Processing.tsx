@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
+import { LoadingScreen } from '../LoadingScreen';
 
 interface Props {
   onDone: () => void;
 }
 
 const stages = [
-  'Creating your Bolt account…',
-  'Provisioning your sandbox environment…',
-  'Almost there — finalizing configuration…',
+  'Creating your Bolt account',
+  'Provisioning your sandbox environment',
+  'Almost there — finalizing configuration',
 ];
 
 export function Screen5Processing({ onDone }: Props) {
@@ -28,11 +29,8 @@ export function Screen5Processing({ onDone }: Props) {
   }, [onDone]);
 
   return (
-    <div className="ob-card">
-      <div className="ob-processing">
-        <div className="ob-processing__spinner" />
-        <p className="ob-processing__label">{stages[stage]}</p>
-      </div>
+    <div className="ob-card ob-card--loader">
+      <LoadingScreen text={stages[stage]} bare />
     </div>
   );
 }

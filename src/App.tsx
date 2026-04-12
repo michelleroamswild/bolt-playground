@@ -81,16 +81,32 @@ export default function App() {
     if (hash.startsWith('#prototype') || hash === '#edit-branding') return 'prototype';
     return 'ds';
   };
+  const getDsSectionFromHash = (hash: string): string => {
+    // Hash shape in DS mode: '' or '#ds/<section>' (e.g. '#ds/buttons')
+    const m = hash.match(/^#ds\/([\w-]+)/);
+    return m ? m[1] : 'overview';
+  };
   const [mode, setMode] = useState<'ds' | 'prototype' | 'onboarding' | 'timed-offers' | 'loader'>(
     getModeFromHash(window.location.hash)
   );
+  const [dsSection, setDsSection] = useState<string>(getDsSectionFromHash(window.location.hash));
 
   // React to browser back/forward navigation at the top level
   useEffect(() => {
-    const onHashChange = () => setMode(getModeFromHash(window.location.hash));
+    const onHashChange = () => {
+      setMode(getModeFromHash(window.location.hash));
+      setDsSection(getDsSectionFromHash(window.location.hash));
+    };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
+
+  const navigateDs = (id: string) => {
+    const hash = id === 'overview' ? '' : `ds/${id}`;
+    window.location.hash = hash;
+    setDsSection(id);
+    setMode('ds');
+  };
   const [toggleOn, setToggleOn] = useState(false);
   const [checked, setChecked] = useState(false);
   const [inputVal, setInputVal] = useState('');
@@ -133,16 +149,36 @@ export default function App() {
     return <LoadingScreen />;
   }
 
+  const SECTIONS: { id: string; label: string; group: string }[] = [
+    { id: 'overview',   label: 'Overview',   group: '' },
+    { id: 'colors',     label: 'Colors',     group: 'Foundations' },
+    { id: 'typography', label: 'Typography', group: 'Foundations' },
+    { id: 'icons',      label: 'Icons',      group: 'Foundations' },
+    { id: 'buttons',    label: 'Buttons',    group: 'Components' },
+    { id: 'tags',       label: 'Tags',       group: 'Components' },
+    { id: 'inputs',     label: 'Inputs',     group: 'Components' },
+    { id: 'select',     label: 'Select',     group: 'Components' },
+    { id: 'controls',   label: 'Controls',   group: 'Components' },
+    { id: 'radio',      label: 'Radio',      group: 'Components' },
+    { id: 'callouts',   label: 'Callouts',   group: 'Components' },
+    { id: 'accordion',  label: 'Accordion',  group: 'Components' },
+    { id: 'modal',      label: 'Modal',      group: 'Components' },
+    { id: 'tabs',       label: 'Tabs',       group: 'Components' },
+    { id: 'avatar',     label: 'Avatar',     group: 'Components' },
+    { id: 'toast',      label: 'Toast',      group: 'Components' },
+  ];
+
+  const groups = Array.from(new Set(SECTIONS.filter(s => s.group).map(s => s.group)));
+
   return (
     <div className="ds-app">
       {/* Header */}
       <header className="ds-header">
         <div className="ds-header__inner">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Bolt">
-            <rect width="32" height="32" rx="8" fill="#11190c"/>
-            <path d="M18 6 9 18h8l-3 8 12-14h-8l3-8Z" fill="#e1ff00"/>
-          </svg>
-          <span className="text-h3">Blitz Design System</span>
+          <div className="ds-header__logo" onClick={() => navigateDs('overview')}>
+            <Icon name="bolt_icon_filled" size="l" />
+            <span className="text-h3">Blitz Design System</span>
+          </div>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
             <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'onboarding'; setMode('onboarding'); }}>Onboarding Flow →</Button>
             <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'timed-offers'; setMode('timed-offers'); }}>Timed Offers →</Button>
@@ -151,9 +187,60 @@ export default function App() {
         </div>
       </header>
 
+      <div className="ds-layout">
+        {/* Sidebar nav */}
+        <aside className="ds-sidebar">
+          <nav className="ds-sidebar__nav">
+            <button
+              className={`ds-nav-link${dsSection === 'overview' ? ' ds-nav-link--active' : ''}`}
+              onClick={() => navigateDs('overview')}
+            >
+              Overview
+            </button>
+            {groups.map(g => (
+              <div key={g} className="ds-nav-group">
+                <p className="ds-nav-group__label">{g}</p>
+                {SECTIONS.filter(s => s.group === g).map(s => (
+                  <button
+                    key={s.id}
+                    className={`ds-nav-link${dsSection === s.id ? ' ds-nav-link--active' : ''}`}
+                    onClick={() => navigateDs(s.id)}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            ))}
+          </nav>
+        </aside>
+
       <main className="ds-main">
 
+        {/* ── Overview ────────────────────────────────────── */}
+        {dsSection === 'overview' && (
+          <section className="ds-section">
+            <h2 className="ds-section__title text-h3">Overview</h2>
+            <p className="text-m-regular" style={{ color: 'var(--content-secondary)', maxWidth: 640 }}>
+              Blitz is Bolt's internal design system. Foundations for color, typography, and iconography sit under one system alongside a component library used across every merchant-facing surface.
+            </p>
+            <div className="ds-overview-grid">
+              {SECTIONS.filter(s => s.id !== 'overview').map(s => (
+                <button key={s.id} className="ds-overview-card" onClick={() => navigateDs(s.id)}>
+                  <div className="ds-overview-card__preview">
+                    <OverviewPreview id={s.id} />
+                  </div>
+                  <div className="ds-overview-card__meta">
+                    <p className="text-s-medium">{s.label}</p>
+                    <p className="text-xs-regular" style={{ color: 'var(--content-tertiary)' }}>{s.group}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ── Colors ─────────────────────────────────────── */}
+        {dsSection === 'colors' && (
         <Section title="Colors">
           <Row label="Brand">
             <Swatch name="Bolt Black" value="#11190c" />
@@ -181,8 +268,10 @@ export default function App() {
             <Swatch name="Info" value="#f2eafd" />
           </Row>
         </Section>
+        )}
 
         {/* ── Typography ─────────────────────────────────── */}
+        {dsSection === 'typography' && (
         <Section title="Typography">
           <div className="ds-type-stack">
             <p className="text-h1-xl" style={{ fontFamily: 'sans-serif' }}>Heading XL — 48px</p>
@@ -199,8 +288,10 @@ export default function App() {
             <p className="text-xs-regular">Body XS Regular — 11px</p>
           </div>
         </Section>
+        )}
 
         {/* ── Buttons ────────────────────────────────────── */}
+        {dsSection === 'buttons' && (
         <Section title="Buttons">
           <Row label="Primary — sizes">
             <Button variant="primary" size="xs">Extra Small</Button>
@@ -240,8 +331,10 @@ export default function App() {
             <Button variant="secondary" iconRight={<ChevronIcon />}>Continue</Button>
           </Row>
         </Section>
+        )}
 
         {/* ── Tags ───────────────────────────────────────── */}
+        {dsSection === 'tags' && (
         <Section title="Tags">
           <Row label="Sentiment">
             <Tag sentiment="neutral">Neutral</Tag>
@@ -266,8 +359,10 @@ export default function App() {
             </div>
           </Row>
         </Section>
+        )}
 
         {/* ── Inputs ─────────────────────────────────────── */}
+        {dsSection === 'inputs' && (
         <Section title="Inputs">
           <Row label="Sizes">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
@@ -290,8 +385,10 @@ export default function App() {
             </div>
           </Row>
         </Section>
+        )}
 
         {/* ── Controls ───────────────────────────────────── */}
+        {dsSection === 'controls' && (
         <Section title="Controls">
           <Row label="Toggle">
             <Toggle label="Off" />
@@ -306,8 +403,10 @@ export default function App() {
             <Checkbox label="Disabled" disabled />
           </Row>
         </Section>
+        )}
 
         {/* ── Callout ────────────────────────────────────── */}
+        {dsSection === 'callouts' && (
         <Section title="Callouts">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 560 }}>
             <Callout sentiment="success" title="Payment authorized">
@@ -324,8 +423,10 @@ export default function App() {
             </Callout>
           </div>
         </Section>
+        )}
 
         {/* ── Radio ──────────────────────────────────────── */}
+        {dsSection === 'radio' && (
         <Section title="Radio">
           <Row label="Sizes">
             <Radio name="r1" label="Option A" size="m" defaultChecked />
@@ -340,8 +441,10 @@ export default function App() {
             <Radio name="r4" label="Disabled checked" disabled defaultChecked />
           </Row>
         </Section>
+        )}
 
         {/* ── Accordion ──────────────────────────────────── */}
+        {dsSection === 'accordion' && (
         <Section title="Accordion">
           <div style={{ maxWidth: 560 }}>
             <Accordion>
@@ -360,8 +463,10 @@ export default function App() {
             </Accordion>
           </div>
         </Section>
+        )}
 
         {/* ── Modal ──────────────────────────────────────── */}
+        {dsSection === 'modal' && (
         <Section title="Modal">
           <Row label="Trigger">
             <Button variant="primary" onClick={() => setModalOpen(true)}>Open modal</Button>
@@ -382,8 +487,10 @@ export default function App() {
             </p>
           </Modal>
         </Section>
+        )}
 
         {/* ── Select ─────────────────────────────────────── */}
+        {dsSection === 'select' && (
         <Section title="Select">
           <Row label="Sizes">
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-end' }}>
@@ -431,8 +538,10 @@ export default function App() {
             </div>
           </Row>
         </Section>
+        )}
 
         {/* ── Tabs ───────────────────────────────────────── */}
+        {dsSection === 'tabs' && (
         <Section title="Tabs">
           <Row label="Default (underline)">
             <Tabs
@@ -456,8 +565,10 @@ export default function App() {
             />
           </Row>
         </Section>
+        )}
 
         {/* ── Icons ──────────────────────────────────────── */}
+        {dsSection === 'icons' && (
         <Section title={`Icons (${ICON_NAMES.length})`}>
           <Row label="Sizes">
             <Icon name="bolt_icon_filled" size="xs" />
@@ -482,8 +593,10 @@ export default function App() {
             ))}
           </div>
         </Section>
+        )}
 
         {/* ── Avatar ─────────────────────────────────────── */}
+        {dsSection === 'avatar' && (
         <Section title="Avatar">
           <Row label="Sizes">
             <Avatar name="Michelle Taylor" size="xs" />
@@ -498,8 +611,10 @@ export default function App() {
             <Avatar />
           </Row>
         </Section>
+        )}
 
         {/* ── Toast ──────────────────────────────────────── */}
+        {dsSection === 'toast' && (
         <Section title="Toast">
           <Row label="Trigger">
             <Button variant="secondary" size="s" onClick={() => addToast({ message: 'Changes saved', sentiment: 'default' })}>Default</Button>
@@ -511,10 +626,79 @@ export default function App() {
           </Row>
           <ToastContainer toasts={toasts} onDismiss={dismissToast} />
         </Section>
+        )}
 
       </main>
+      </div>
     </div>
   );
+}
+
+// ── Overview preview thumbnails ──────────────────────────────
+function OverviewPreview({ id }: { id: string }) {
+  switch (id) {
+    case 'colors':
+      return (
+        <div style={{ display: 'flex', gap: 4 }}>
+          {['#11190c', '#e1ff00', '#006dff', '#e62728', '#00ae49'].map(c => (
+            <div key={c} style={{ width: 24, height: 24, borderRadius: 4, background: c }} />
+          ))}
+        </div>
+      );
+    case 'typography':
+      return <div className="text-h2" style={{ color: 'var(--content-primary)' }}>Aa</div>;
+    case 'icons':
+      return <Icon name="bolt_icon_filled" size="xl" />;
+    case 'buttons':
+      return <Button variant="primary" size="s">Button</Button>;
+    case 'tags':
+      return (
+        <div style={{ display: 'flex', gap: 4 }}>
+          <Tag sentiment="success">Active</Tag>
+          <Tag sentiment="neutral">Draft</Tag>
+        </div>
+      );
+    case 'inputs':
+      return <div style={{ width: 160 }}><Input placeholder="Type here" size="s" /></div>;
+    case 'select':
+      return <div style={{ width: 160 }}><Select size="s"><option>Option</option></Select></div>;
+    case 'controls':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Toggle checked onChange={() => {}} />
+          <Checkbox checked onChange={() => {}} />
+        </div>
+      );
+    case 'radio':
+      return (
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Radio name="ov" defaultChecked /><Radio name="ov" />
+        </div>
+      );
+    case 'callouts':
+      return <div style={{ width: '100%' }}><Callout sentiment="informative" title="Heads up" /></div>;
+    case 'accordion':
+      return (
+        <div style={{ width: '100%' }}>
+          <Accordion><AccordionItem title="Item">...</AccordionItem></Accordion>
+        </div>
+      );
+    case 'modal':
+      return <Icon name="maximize" size="xl" />;
+    case 'tabs':
+      return <Tabs items={[{ id: 'a', label: 'Tab A' }, { id: 'b', label: 'Tab B' }]} />;
+    case 'avatar':
+      return (
+        <div style={{ display: 'flex', gap: 4 }}>
+          <Avatar name="Clark C" />
+          <Avatar name="Skyler S" />
+        </div>
+      );
+    case 'toast':
+      return <Icon name="notification" size="xl" />;
+    default:
+      return null;
+  }
 }
 
 // ── Inline SVG icons ─────────────────────────────────────────

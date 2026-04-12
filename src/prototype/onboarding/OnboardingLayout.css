@@ -85,6 +85,12 @@
   flex-direction: column;
 }
 
+.ob-card--loader {
+  min-height: 420px;
+  align-items: center;
+  justify-content: center;
+}
+
 .ob-card__header {
   border-bottom: 1px solid var(--border-secondary);
   padding: 32px;
