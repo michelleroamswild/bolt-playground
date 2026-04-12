@@ -460,18 +460,18 @@ export default function App() {
         {/* ── Icons ──────────────────────────────────────── */}
         <Section title={`Icons (${ICON_NAMES.length})`}>
           <Row label="Sizes">
-            <Icon name="bolt" size="xs" />
-            <Icon name="bolt" size="s" />
-            <Icon name="bolt" size="m" />
-            <Icon name="bolt" size="l" />
-            <Icon name="bolt" size="xl" />
+            <Icon name="bolt_icon_filled" size="xs" />
+            <Icon name="bolt_icon_filled" size="s" />
+            <Icon name="bolt_icon_filled" size="m" />
+            <Icon name="bolt_icon_filled" size="l" />
+            <Icon name="bolt_icon_filled" size="xl" />
           </Row>
           <Row label="Colors (via currentColor)">
             <span style={{ color: 'var(--content-primary)' }}><Icon name="check_circle" /></span>
             <span style={{ color: 'var(--content-success, #00ae49)' }}><Icon name="check_circle" /></span>
             <span style={{ color: 'var(--content-critical, #e62728)' }}><Icon name="x_circle" /></span>
-            <span style={{ color: 'var(--content-warning, #9a6f00)' }}><Icon name="semantic_warning" /></span>
-            <span style={{ color: 'var(--content-info, #8c40f2)' }}><Icon name="semantic_info" /></span>
+            <span style={{ color: 'var(--content-warning, #9a6f00)' }}><Icon name="exclamation_circle" /></span>
+            <span style={{ color: 'var(--content-info, #8c40f2)' }}><Icon name="i_circle" /></span>
           </Row>
           <div className="icon-grid">
             {ICON_NAMES.map(name => (

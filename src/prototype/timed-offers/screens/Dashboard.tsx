@@ -20,7 +20,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             <p className="text-h3">Help guides</p>
             <div className="to-dash__guide-list">
               <GuideItem
-                icon={<Icon name="bolt" size="l" />}
+                icon={<Icon name="bolt_icon_filled" size="l" />}
                 iconBg="var(--brand-lightning)"
                 title="Get Started"
                 desc="Learn more about Bolt's core features"
@@ -169,7 +169,7 @@ function KpiCard({ label, value, change }: {
       <div className="to-kpi__header">
         <span className="text-xs-medium to-kpi__label">
           {label}
-          <Icon name="semantic_info" size="xs" />
+          <Icon name="i_circle" size="xs" />
         </span>
         <span className="text-xs-medium to-kpi__change">{change}</span>
       </div>
