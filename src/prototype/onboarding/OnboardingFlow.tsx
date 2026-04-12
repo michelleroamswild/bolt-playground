@@ -100,7 +100,7 @@ export function OnboardingFlow() {
       screen = <Screen5Processing onDone={() => goTo(7)} />;
       break;
     case 7:
-      screen = <Screen7Created onRestart={() => { setData(emptyData); goTo('0b'); }} />;
+      screen = <Screen7Created onRestart={() => { setData(emptyData); goTo('0b'); window.scrollTo({ top: 0, behavior: 'auto' }); }} />;
       break;
   }
 
