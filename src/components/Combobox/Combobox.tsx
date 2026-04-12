@@ -46,29 +46,43 @@ export function Combobox({
   const [activeIndex, setActiveIndex] = useState<number>(() =>
     Math.max(0, options.findIndex(o => o.value === value))
   );
-  const [popoverRect, setPopoverRect] = useState<{ top: number; left: number; width: number } | null>(null);
+  const [popoverRect, setPopoverRect] = useState<{ top: number; left: number; width: number; placement: 'below' | 'above' } | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   const selected = options.find(o => o.value === value);
 
-  // Position the popover beneath the trigger using viewport coordinates so it
-  // can escape any ancestor with overflow:hidden.
+  // Position the popover relative to the trigger using viewport coordinates
+  // so it can escape any ancestor with overflow:hidden. Flips to open above
+  // the trigger when the available space below is too small.
   const updatePosition = () => {
     const t = triggerRef.current;
     if (!t) return;
     const r = t.getBoundingClientRect();
-    setPopoverRect({ top: r.bottom + 4, left: r.left, width: r.width });
+    const gap = 4;
+    const measured = listRef.current?.getBoundingClientRect().height;
+    // Fallback: estimate from option count until the popover mounts. Items are
+    // ~40px with ~8px of padding, capped at 320px (max-height in CSS).
+    const estimated = Math.min(320, options.length * 40 + 16);
+    const popoverHeight = measured ?? estimated;
+    const spaceBelow = window.innerHeight - r.bottom - gap;
+    const spaceAbove = r.top - gap;
+    const flipUp = spaceBelow < popoverHeight && spaceAbove > spaceBelow;
+    const top = flipUp ? r.top - gap - popoverHeight : r.bottom + gap;
+    setPopoverRect({ top, left: r.left, width: r.width, placement: flipUp ? 'above' : 'below' });
   };
 
   useLayoutEffect(() => {
     if (!open) return;
     updatePosition();
+    // Refine position once the popover has mounted so we can measure its real height.
+    const raf = requestAnimationFrame(updatePosition);
     const onScrollOrResize = () => updatePosition();
     window.addEventListener('scroll', onScrollOrResize, true);
     window.addEventListener('resize', onScrollOrResize);
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener('scroll', onScrollOrResize, true);
       window.removeEventListener('resize', onScrollOrResize);
     };
