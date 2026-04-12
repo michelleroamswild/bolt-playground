@@ -19,6 +19,7 @@ export interface ComboboxProps {
   options: ComboboxOption[];
   hint?: string;
   status?: 'default' | 'error' | 'warning';
+  size?: 'm' | 's';
   disabled?: boolean;
   className?: string;
   id?: string;
@@ -32,6 +33,7 @@ export function Combobox({
   options,
   hint,
   status = 'default',
+  size = 'm',
   disabled,
   className,
   id,
@@ -148,7 +150,7 @@ export function Combobox({
   return (
     <div
       ref={rootRef}
-      className={clsx('combobox', className)}
+      className={clsx('combobox', `combobox--${size}`, className)}
       data-open={open ? 'true' : 'false'}
     >
       {label && (

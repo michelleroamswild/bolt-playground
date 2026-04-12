@@ -2,6 +2,7 @@ import type { SVGAttributes } from 'react';
 import clsx from 'clsx';
 import type { IconName } from './icon-names';
 import { ICON_NAMES } from './icon-names';
+import { ICON_DATA } from './icon-data';
 import './Icon.css';
 
 export type IconSize = 'xs' | 's' | 'm' | 'l' | 'xl' | number;
@@ -22,21 +23,22 @@ export interface IconProps extends Omit<SVGAttributes<SVGSVGElement>, 'name'> {
 
 export function Icon({ name, size = 'l', title, className, ...rest }: IconProps) {
   const px = typeof size === 'number' ? size : SIZE_PX[size];
+  const data = ICON_DATA[name];
+  const viewBox = data?.viewBox ?? '0 0 24 24';
+
   return (
     <svg
       className={clsx('icon', className)}
       width={px}
       height={px}
-      viewBox="0 0 24 24"
+      viewBox={viewBox}
       role={title ? 'img' : 'presentation'}
       aria-hidden={title ? undefined : true}
       aria-label={title}
       focusable="false"
       {...rest}
-    >
-      {title && <title>{title}</title>}
-      <use href={`/icons.svg#icon-${name}`} />
-    </svg>
+      dangerouslySetInnerHTML={{ __html: (title ? `<title>${title}</title>` : '') + (data?.content ?? '') }}
+    />
   );
 }
 

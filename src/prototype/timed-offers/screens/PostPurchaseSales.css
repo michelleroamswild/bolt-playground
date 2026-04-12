@@ -1,0 +1,132 @@
+/* ============================================================
+   Post-purchase Timed Offers — Sales screen
+   ============================================================ */
+
+.pps {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* ── Page header ─────────────────────────────────────────── */
+.pps__page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--surface-primary);
+  border-bottom: var(--border-width) solid var(--border-secondary);
+}
+
+.pps__store-select {
+  width: 176px;
+}
+
+/* ── Main container ──────────────────────────────────────── */
+.pps__main {
+  flex: 1;
+  background: var(--surface-secondary);
+  padding: var(--space-6) 48px 48px 48px;
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+.pps__hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 524px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+  padding-top: 66px;
+}
+
+.pps__hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 524px;
+}
+
+.pps__hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 69px;
+  letter-spacing: -0.01em;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.pps__hero-desc {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--content-tertiary);
+  margin: 0;
+}
+
+.pps__hero-text button {
+  align-self: flex-start;
+}
+
+.pps__hero-image {
+  position: relative;
+  margin-top: -81px;
+  display: flex;
+  justify-content: center;
+}
+
+.pps__hero-image img {
+  width: 558px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ── Feature cards ───────────────────────────────────────── */
+.pps__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.pps-feat {
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
+.pps-feat__icon {
+  color: var(--content-primary);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pps-feat__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 36px;
+  letter-spacing: -0.5px;
+  color: var(--content-primary);
+  margin: 0;
+}
+
+.pps-feat__desc {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--content-secondary);
+  margin: 0;
+}

@@ -1,0 +1,291 @@
+/* ============================================================
+   Timed Offers — Dashboard
+   ============================================================ */
+
+.to-dash {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1080px;
+}
+
+/* ── Top row ─────────────────────────────────────────────── */
+.to-dash__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ── Welcome card ────────────────────────────────────────── */
+.to-dash__welcome {
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.to-dash__greeting {
+  color: var(--content-primary);
+}
+
+.to-dash__subtitle {
+  color: var(--content-tertiary);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.to-dash__guides {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.to-dash__guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.to-guide {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.to-guide__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.to-guide__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.to-dash__guide-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.to-dash__guide-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface-primary);
+  color: var(--content-primary);
+  font: var(--fw-medium) 14px/20px var(--font-body);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-default);
+}
+
+.to-dash__guide-btn:hover {
+  background: var(--surface-secondary);
+}
+
+/* ── Feature promo card ──────────────────────────────────── */
+.to-dash__promo {
+  background: var(--surface-inverse-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.to-dash__promo-inner {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.to-dash__promo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.to-dash__promo-label {
+  color: var(--content-inverse-secondary);
+}
+
+.to-dash__promo-arrows {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.to-dash__promo-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--content-inverse-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-base) var(--ease-default);
+}
+
+.to-dash__promo-arrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.to-dash__promo-title {
+  color: var(--content-inverse-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.to-dash__promo-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--surface-success);
+  color: var(--content-success);
+}
+
+.to-dash__promo-desc {
+  color: var(--content-inverse-secondary);
+  max-width: 400px;
+}
+
+.to-dash__promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--content-inverse-secondary);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--content-inverse-primary);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-default);
+  width: fit-content;
+}
+
+.to-dash__promo-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.to-dash__promo-accent {
+  height: 32px;
+  background: var(--brand-lightning);
+  flex-shrink: 0;
+}
+
+/* ── Executive Summary ───────────────────────────────────── */
+.to-dash__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.to-dash__summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.to-dash__summary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--content-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.to-dash__summary-link:hover {
+  text-decoration: underline;
+}
+
+.to-dash__summary-filter {
+  display: flex;
+}
+
+.to-dash__date-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface-primary);
+  color: var(--content-secondary);
+  cursor: pointer;
+}
+
+/* ── KPI grid ────────────────────────────────────────────── */
+.to-dash__kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.to-kpi {
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.to-kpi__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.to-kpi__label {
+  color: var(--content-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.4;
+}
+
+.to-kpi__change {
+  color: var(--content-success);
+  flex-shrink: 0;
+}
+
+.to-kpi__value {
+  color: var(--content-primary);
+}
+
+.to-kpi__sparkline {
+  height: 40px;
+  margin-top: var(--space-2);
+}
+
+.to-kpi__sparkline svg {
+  width: 100%;
+  height: 100%;
+}

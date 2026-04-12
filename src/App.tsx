@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES } from './components';
 import type { ToastItem } from './components';
 import { Prototype } from './prototype/Prototype';
 import { OnboardingFlow } from './prototype/onboarding/OnboardingFlow';
+import { TimedOffersFlow } from './prototype/timed-offers/TimedOffersFlow';
 
 // ── Section wrapper ─────────────────────────────────────────
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -72,14 +73,22 @@ function PrototypeChrome({ label, onExit, children }: { label: string; onExit: (
 
 // ── App ─────────────────────────────────────────────────────
 export default function App() {
-  const initialHash = window.location.hash;
-  const [mode, setMode] = useState<'ds' | 'prototype' | 'onboarding'>(
-    initialHash === '#onboarding'
-      ? 'onboarding'
-      : initialHash.startsWith('#prototype') || initialHash === '#edit-branding'
-        ? 'prototype'
-        : 'ds'
+  const getModeFromHash = (hash: string): 'ds' | 'prototype' | 'onboarding' | 'timed-offers' => {
+    if (hash.startsWith('#onboarding')) return 'onboarding';
+    if (hash.startsWith('#timed-offers')) return 'timed-offers';
+    if (hash.startsWith('#prototype') || hash === '#edit-branding') return 'prototype';
+    return 'ds';
+  };
+  const [mode, setMode] = useState<'ds' | 'prototype' | 'onboarding' | 'timed-offers'>(
+    getModeFromHash(window.location.hash)
   );
+
+  // React to browser back/forward navigation at the top level
+  useEffect(() => {
+    const onHashChange = () => setMode(getModeFromHash(window.location.hash));
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
   const [toggleOn, setToggleOn] = useState(false);
   const [checked, setChecked] = useState(false);
   const [inputVal, setInputVal] = useState('');
@@ -109,6 +118,14 @@ export default function App() {
     );
   }
 
+  if (mode === 'timed-offers') {
+    return (
+      <PrototypeChrome label="Timed Offers — Prototype" onExit={exitToDS}>
+        <TimedOffersFlow />
+      </PrototypeChrome>
+    );
+  }
+
   return (
     <div className="ds-app">
       {/* Header */}
@@ -121,6 +138,7 @@ export default function App() {
           <span className="text-h3">Blitz Design System</span>
           <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
             <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'onboarding'; setMode('onboarding'); }}>Onboarding Flow →</Button>
+            <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'timed-offers'; setMode('timed-offers'); }}>Timed Offers →</Button>
             <Button variant="primary" size="s" onClick={() => { window.location.hash = 'prototype'; setMode('prototype'); }}>View Prototype →</Button>
           </div>
         </div>
