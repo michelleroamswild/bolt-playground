@@ -33,22 +33,24 @@ export interface OnboardingData {
   billingZip: string;
 }
 
+// Demo defaults — pre-filled so the flow can be clicked through in a presentation.
+// Reset clears everything back to empty.
 const emptyData: OnboardingData = {
   packageType: '',
-  websiteUrl: '',
-  platform: '',
-  paymentProcessor: '',
-  userName: '',
-  userEmail: '',
+  websiteUrl: 'https://www.lightningshop.com',
+  platform: 'shopify',
+  paymentProcessor: 'stripe',
+  userName: 'Clark Clickerati',
+  userEmail: 'clark@lightningshop.com',
   additionalUserName: '',
   additionalUserEmail: '',
   additionalUserRole: '',
-  dbaName: '',
-  industry: '',
-  streetAddress: '',
-  city: '',
-  state: '',
-  zip: '',
+  dbaName: 'The Lightning Shop',
+  industry: 'apparel',
+  streetAddress: '123 Thunder Lane',
+  city: 'San Francisco',
+  state: 'CA',
+  zip: '94103',
   billingSameAsLegal: true,
   billingStreet: '',
   billingCity: '',
