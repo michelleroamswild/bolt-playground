@@ -5,6 +5,7 @@ import type { ToastItem } from './components';
 import { Prototype } from './prototype/Prototype';
 import { OnboardingFlow } from './prototype/onboarding/OnboardingFlow';
 import { TimedOffersFlow } from './prototype/timed-offers/TimedOffersFlow';
+import { LoadingScreen } from './prototype/onboarding/LoadingScreen';
 
 // ── Section wrapper ─────────────────────────────────────────
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -73,13 +74,14 @@ function PrototypeChrome({ label, onExit, children }: { label: string; onExit: (
 
 // ── App ─────────────────────────────────────────────────────
 export default function App() {
-  const getModeFromHash = (hash: string): 'ds' | 'prototype' | 'onboarding' | 'timed-offers' => {
+  const getModeFromHash = (hash: string): 'ds' | 'prototype' | 'onboarding' | 'timed-offers' | 'loader' => {
+    if (hash.startsWith('#loader')) return 'loader';
     if (hash.startsWith('#onboarding')) return 'onboarding';
     if (hash.startsWith('#timed-offers')) return 'timed-offers';
     if (hash.startsWith('#prototype') || hash === '#edit-branding') return 'prototype';
     return 'ds';
   };
-  const [mode, setMode] = useState<'ds' | 'prototype' | 'onboarding' | 'timed-offers'>(
+  const [mode, setMode] = useState<'ds' | 'prototype' | 'onboarding' | 'timed-offers' | 'loader'>(
     getModeFromHash(window.location.hash)
   );
 
@@ -124,6 +126,11 @@ export default function App() {
         <TimedOffersFlow />
       </PrototypeChrome>
     );
+  }
+
+  if (mode === 'loader') {
+    // Standalone loader — no chrome, safe to iframe anywhere.
+    return <LoadingScreen />;
   }
 
   return (

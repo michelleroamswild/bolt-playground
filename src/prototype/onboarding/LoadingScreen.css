@@ -1,0 +1,92 @@
+/* ============================================================
+   Loading Screen — bolt fills like a glass
+   ============================================================ */
+
+.ls {
+  min-height: 100vh;
+  background: #031332;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ls--bare {
+  background: transparent;
+  padding: 0;
+  min-height: 100%;
+}
+
+.ls__card {
+  width: 100%;
+  max-width: 660px;
+  aspect-ratio: 660 / 500;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ls--bare .ls__card {
+  background: transparent;
+  max-width: none;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.ls__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  color: #11190c;
+}
+
+/* ── Icon ──────────────────────────────────────────────────── */
+.ls__icon {
+  color: #11190c;
+  overflow: visible;
+}
+
+/* The clip rect rises from below the bolt to above it,
+   then snaps back down to loop — classic "fill a glass" loading. */
+.ls__fill-rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translateY(-200px) rotate(-16deg);
+  animation: ls-fill 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes ls-fill {
+  0%   { transform: translateY(-200px) rotate(-16deg); }  /* fully above bolt (even rotated) */
+  50%  { transform: translateY(0)      rotate(-16deg); }  /* covers bolt */
+  100% { transform: translateY(200px)  rotate(-16deg); }  /* fully below bolt, snaps to 0% cleanly */
+}
+
+/* Subtle outline breathe */
+.ls__outline {
+  animation: ls-outline-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes ls-outline-breathe {
+  0%, 100% { opacity: 0.85; }
+  70%      { opacity: 1; }
+}
+
+/* ── Label ─────────────────────────────────────────────────── */
+.ls__text {
+  font-family: var(--font-body, Inter, sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #11190c;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.ls__dots {
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+}
