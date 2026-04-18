@@ -1,0 +1,62 @@
+/* ============================================================
+   Blitz — Progress
+   ============================================================ */
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  --progress-color: var(--content-primary);
+}
+
+.progress--success { --progress-color: var(--content-success, #00ae49); }
+.progress--warning { --progress-color: var(--content-warning, #9a6f00); }
+.progress--error   { --progress-color: var(--content-critical, #e62728); }
+
+.progress__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.progress__label {
+  color: var(--content-primary);
+}
+
+.progress__value {
+  color: var(--content-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress__track {
+  position: relative;
+  width: 100%;
+  background: var(--surface-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress--s .progress__track { height: 4px; }
+.progress--m .progress__track { height: 8px; }
+
+.progress__fill {
+  height: 100%;
+  background: var(--progress-color);
+  border-radius: inherit;
+  transition: width var(--duration-slow) var(--ease-default);
+}
+
+@keyframes progress-indeterminate {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+
+.progress__fill--indeterminate {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  animation: progress-indeterminate 1.4s var(--ease-default) infinite;
+}

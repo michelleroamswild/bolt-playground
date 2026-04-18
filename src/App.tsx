@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock } from './components';
+import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock, Progress, Tooltip } from './components';
 import type { ToastItem } from './components';
 import type { IconName } from './components/Icon';
 import { Prototype } from './prototype/Prototype';
@@ -175,6 +175,8 @@ export default function App() {
     { id: 'tabs',       label: 'Tabs',       group: 'Components' },
     { id: 'avatar',     label: 'Avatar',     group: 'Components' },
     { id: 'toast',      label: 'Toast',      group: 'Components' },
+    { id: 'progress',   label: 'Progress',   group: 'Components' },
+    { id: 'tooltip',    label: 'Tooltip',    group: 'Components' },
   ];
 
   const groups = Array.from(new Set(SECTIONS.filter(s => s.group).map(s => s.group)));
@@ -744,6 +746,68 @@ export default function App() {
         </Section>
         )}
 
+        {/* ── Progress ───────────────────────────────────── */}
+        {dsSection === 'progress' && (
+        <Section title="Progress">
+          <Row label="Sizes">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
+              <Progress value={40} size="m" />
+              <Progress value={70} size="s" />
+            </div>
+          </Row>
+          <Row label="Sentiment">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
+              <Progress value={55} sentiment="default" label="Default" showValue />
+              <Progress value={80} sentiment="success" label="Success" showValue />
+              <Progress value={60} sentiment="warning" label="Warning" showValue />
+              <Progress value={25} sentiment="error"   label="Error"   showValue />
+            </div>
+          </Row>
+          <Row label="Indeterminate">
+            <div style={{ width: 360 }}>
+              <Progress indeterminate label="Processing payment…" />
+            </div>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Progress value={70} label="Uploading" showValue />
+
+<Progress indeterminate label="Processing payment…" />`}</CodeBlock>
+          </Row>
+        </Section>
+        )}
+
+        {/* ── Tooltip ────────────────────────────────────── */}
+        {dsSection === 'tooltip' && (
+        <Section title="Tooltip">
+          <Row label="Placements">
+            <div style={{ display: 'flex', gap: 32, padding: '48px 24px' }}>
+              <Tooltip content="Tooltip on top" placement="top">
+                <Button variant="secondary" size="s">Top</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on bottom" placement="bottom">
+                <Button variant="secondary" size="s">Bottom</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on left" placement="left">
+                <Button variant="secondary" size="s">Left</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on right" placement="right">
+                <Button variant="secondary" size="s">Right</Button>
+              </Tooltip>
+            </div>
+          </Row>
+          <Row label="On an icon button">
+            <Tooltip content="Copy to clipboard">
+              <Button variant="tertiary" size="s" iconLeft={<Icon name="copy" />}>Copy</Button>
+            </Tooltip>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tooltip content="Copy to clipboard" placement="top">
+  <Button variant="tertiary">Copy</Button>
+</Tooltip>`}</CodeBlock>
+          </Row>
+        </Section>
+        )}
+
       </main>
       </div>
     </div>
@@ -814,6 +878,10 @@ function OverviewPreview({ id }: { id: string }) {
       );
     case 'toast':
       return <Icon name="notification" size="xl" />;
+    case 'progress':
+      return <div style={{ width: '80%' }}><Progress value={65} /></div>;
+    case 'tooltip':
+      return <Icon name="message" size="xl" />;
     default:
       return null;
   }
