@@ -393,6 +393,10 @@ export default function App() {
               <Tag inverse>Completed</Tag>
             </div>
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tag sentiment="success">Authorized</Tag>
+<Tag sentiment="warning" outline>Pending</Tag>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -419,6 +423,16 @@ export default function App() {
               <Input label="Flat" placeholder="Flat input" variant="flat" />
             </div>
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Input
+  label="Email"
+  placeholder="you@example.com"
+  value={email}
+  onChange={e => setEmail(e.target.value)}
+  status="error"
+  hint="Please enter a valid email."
+/>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -436,6 +450,19 @@ export default function App() {
             <Checkbox label="Checked" checked={checked} onChange={e => setChecked(e.target.checked)} />
             <Checkbox label="Indeterminate" indeterminate />
             <Checkbox label="Disabled" disabled />
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Toggle
+  label="Notifications"
+  checked={on}
+  onChange={e => setOn(e.target.checked)}
+/>
+
+<Checkbox
+  label="I agree to the terms"
+  checked={agreed}
+  onChange={e => setAgreed(e.target.checked)}
+/>`}</CodeBlock>
           </Row>
         </Section>
         )}
@@ -457,6 +484,11 @@ export default function App() {
               One-click checkout is now available for returning customers.
             </Callout>
           </div>
+          <Row label="Usage">
+            <CodeBlock>{`<Callout sentiment="success" title="Payment authorized">
+  Your payment of $149.00 has been successfully authorized.
+</Callout>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -474,6 +506,10 @@ export default function App() {
             <Radio name="r3" label="Checked" defaultChecked />
             <Radio name="r4" label="Disabled" disabled />
             <Radio name="r4" label="Disabled checked" disabled defaultChecked />
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Radio name="plan" label="Starter"  value="starter"  checked={plan === 'starter'}  onChange={() => setPlan('starter')} />
+<Radio name="plan" label="Business" value="business" checked={plan === 'business'} onChange={() => setPlan('business')} />`}</CodeBlock>
           </Row>
         </Section>
         )}
@@ -497,6 +533,16 @@ export default function App() {
               </AccordionItem>
             </Accordion>
           </div>
+          <Row label="Usage">
+            <CodeBlock>{`<Accordion>
+  <AccordionItem title="What payment methods are accepted?" defaultOpen>
+    We accept Visa, Mastercard, Amex, PayPal, Apple Pay, and Bolt.
+  </AccordionItem>
+  <AccordionItem title="Is my payment information secure?">
+    Yes — encrypted and PCI DSS Level 1 compliant.
+  </AccordionItem>
+</Accordion>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -591,6 +637,17 @@ export default function App() {
               </div>
             </div>
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Select
+  label="Country"
+  value={country}
+  onChange={e => setCountry(e.target.value)}
+>
+  <option value="us">United States</option>
+  <option value="ca">Canada</option>
+  <option value="uk">United Kingdom</option>
+</Select>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -682,6 +739,16 @@ export default function App() {
               ]}
             />
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tabs
+  items={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'transactions', label: 'Transactions', badge: 12 },
+    { id: 'settings', label: 'Settings' },
+  ]}
+  onChange={setActiveTab}
+/>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -728,6 +795,11 @@ export default function App() {
             <Avatar name="Alice B" />
             <Avatar />
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Avatar name="Michelle Taylor" size="m" />
+
+<Avatar src="/avatars/alice.jpg" name="Alice" size="l" />`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -743,6 +815,21 @@ export default function App() {
             <Button variant="secondary" size="s" onClick={() => addToast({ message: 'Session saved', sentiment: 'success', inverse: true })}>Inverse</Button>
           </Row>
           <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+          <Row label="Usage">
+            <CodeBlock>{`const [toasts, setToasts] = useState<ToastItem[]>([]);
+
+const addToast = (t: Omit<ToastItem, 'id'>) =>
+  setToasts(prev => [...prev, { ...t, id: crypto.randomUUID() }]);
+
+<Button onClick={() => addToast({ message: 'Payment authorized', sentiment: 'success' })}>
+  Show toast
+</Button>
+
+<ToastContainer
+  toasts={toasts}
+  onDismiss={id => setToasts(t => t.filter(x => x.id !== id))}
+/>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
