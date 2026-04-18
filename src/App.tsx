@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock, Progress, Tooltip } from './components';
+import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock, Progress, Tooltip, PropsTable, Guidelines, A11yNote } from './components';
 import type { ToastItem } from './components';
 import type { IconName } from './components/Icon';
 import { Prototype } from './prototype/Prototype';
@@ -364,6 +364,45 @@ export default function App() {
 <Button variant="secondary" iconRight={<ChevronIcon />}>
   Continue
 </Button>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'variant',     type: "'primary' | 'secondary' | 'tertiary'", defaultValue: "'primary'", description: 'Visual emphasis. Use primary for the main action on a surface.' },
+              { name: 'size',        type: "'xs' | 's' | 'm'",                     defaultValue: "'m'",       description: 'Control height and padding.' },
+              { name: 'shape',       type: "'default' | 'pill'",                   defaultValue: "'default'", description: 'Pill uses fully rounded corners.' },
+              { name: 'destructive', type: 'boolean',                              defaultValue: 'false',     description: 'Applies the critical color treatment for destructive actions.' },
+              { name: 'busy',        type: 'boolean',                              defaultValue: 'false',     description: 'Shows a spinner and disables interaction.' },
+              { name: 'inverse',     type: 'boolean',                              defaultValue: 'false',     description: 'Recolors the button for dark backgrounds.' },
+              { name: 'iconLeft',    type: 'ReactNode',                            defaultValue: '—',         description: 'Leading icon (pass a node, not a name).' },
+              { name: 'iconRight',   type: 'ReactNode',                            defaultValue: '—',         description: 'Trailing icon.' },
+              { name: 'fullWidth',   type: 'boolean',                              defaultValue: 'false',     description: 'Stretches to the container width.' },
+              { name: 'disabled',    type: 'boolean',                              defaultValue: 'false',     description: 'Disables the button (also set by busy).' },
+              { name: 'onClick',     type: '(e: MouseEvent) => void',              defaultValue: '—',         description: 'Click handler. Forwarded with all native button props.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use one primary button per surface', body: 'The primary button signals the single main action. Secondary or tertiary for everything else.' },
+                { label: 'Lead with a verb in the label',     body: 'Good: "Save changes", "Pay $149.00". Avoid nouns like "Payment" or "OK".' },
+                { label: 'Pair busy state with a disabled form', body: 'While the server request is in-flight, disable related inputs so users can\'t retry mid-submit.' },
+              ]}
+              dont={[
+                { label: "Don't stack multiple primary buttons", body: 'Competing primaries make the main action ambiguous.' },
+                { label: "Don't use destructive for routine saves",  body: 'Reserve the critical color for actions that delete or cannot be undone.' },
+                { label: "Don't mix sizes in a single action row", body: 'Keep a row of buttons at the same size so the layout stays scannable.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Always provide a text label; for icon-only buttons, use <code>aria-label</code>.</li>
+                <li>Focus ring is visible on keyboard focus — don't remove <code>:focus-visible</code> styles.</li>
+                <li><code>busy</code> toggles <code>disabled</code>, which removes the button from the tab order. Announce state changes elsewhere (e.g. a toast) if the user needs confirmation.</li>
+                <li>For destructive actions, consider a confirmation step (Modal) so the action can't be triggered accidentally.</li>
+              </ul>
+            </A11yNote>
           </Row>
         </Section>
         )}

@@ -1,0 +1,50 @@
+/* ============================================================
+   Blitz — A11yNote
+   ============================================================ */
+
+.a11y-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-left: 3px solid var(--content-info, #8c40f2);
+  border-radius: var(--radius-md);
+  background: var(--surface-info, #f2eafd);
+}
+
+.a11y-note__heading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--content-info, #8c40f2);
+}
+
+.a11y-note__body {
+  color: var(--content-primary);
+}
+
+.a11y-note__body p {
+  margin: 0 0 var(--space-2);
+}
+
+.a11y-note__body p:last-child {
+  margin-bottom: 0;
+}
+
+.a11y-note__body ul {
+  margin: 0;
+  padding-left: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.a11y-note__body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(140, 64, 242, 0.12);
+  color: var(--content-info, #8c40f2);
+}
