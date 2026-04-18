@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES } from './components';
+import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock } from './components';
 import type { ToastItem } from './components';
+import type { IconName } from './components/Icon';
 import { Prototype } from './prototype/Prototype';
 import { OnboardingFlow } from './prototype/onboarding/OnboardingFlow';
 import { TimedOffersFlow } from './prototype/timed-offers/TimedOffersFlow';
@@ -112,6 +113,7 @@ export default function App() {
   const [inputVal, setInputVal] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const [comboboxValue, setComboboxValue] = useState('usd');
 
   const addToast = (props: Omit<ToastItem, 'id'>) =>
     setToasts(t => [...t, { ...props, id: Math.random().toString(36).slice(2) }]);
@@ -149,6 +151,12 @@ export default function App() {
     return <LoadingScreen />;
   }
 
+  const PROJECTS: { id: string; mode: 'prototype' | 'onboarding' | 'timed-offers'; label: string; description: string; icon: IconName; theme: 'config' | 'onboarding' | 'offers' }[] = [
+    { id: 'onboarding',   mode: 'onboarding',   label: 'Onboarding Acceleration', description: 'Merchant signup flow with streamlined setup and verification.', icon: 'user',     theme: 'onboarding' },
+    { id: 'timed-offers', mode: 'timed-offers', label: 'Timed Offers',            description: 'Post-purchase offers dashboard with creation and scheduling.',   icon: 'gift',     theme: 'offers' },
+    { id: 'prototype',    mode: 'prototype',    label: 'Bolt Configuration',      description: 'Merchant-facing configuration surfaces — branding, payments.',   icon: 'setting',  theme: 'config' },
+  ];
+
   const SECTIONS: { id: string; label: string; group: string }[] = [
     { id: 'overview',   label: 'Overview',   group: '' },
     { id: 'colors',     label: 'Colors',     group: 'Foundations' },
@@ -158,6 +166,7 @@ export default function App() {
     { id: 'tags',       label: 'Tags',       group: 'Components' },
     { id: 'inputs',     label: 'Inputs',     group: 'Components' },
     { id: 'select',     label: 'Select',     group: 'Components' },
+    { id: 'combobox',   label: 'Combobox',   group: 'Components' },
     { id: 'controls',   label: 'Controls',   group: 'Components' },
     { id: 'radio',      label: 'Radio',      group: 'Components' },
     { id: 'callouts',   label: 'Callouts',   group: 'Components' },
@@ -178,11 +187,6 @@ export default function App() {
           <div className="ds-header__logo" onClick={() => navigateDs('overview')}>
             <Icon name="bolt_icon_filled" size="l" />
             <span className="text-h3">Blitz Design System</span>
-          </div>
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-            <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'onboarding'; setMode('onboarding'); }}>Onboarding Flow →</Button>
-            <Button variant="secondary" size="s" onClick={() => { window.location.hash = 'timed-offers'; setMode('timed-offers'); }}>Timed Offers →</Button>
-            <Button variant="primary" size="s" onClick={() => { window.location.hash = 'prototype'; setMode('prototype'); }}>View Prototype →</Button>
           </div>
         </div>
       </header>
@@ -223,6 +227,26 @@ export default function App() {
             <p className="text-m-regular" style={{ color: 'var(--content-secondary)', maxWidth: 640 }}>
               Blitz is Bolt's internal design system. Foundations for color, typography, and iconography sit under one system alongside a component library used across every merchant-facing surface.
             </p>
+
+            <h3 className="ds-overview-subtitle text-h4">Prototypes</h3>
+            <div className="ds-project-grid">
+              {PROJECTS.map(p => (
+                <button key={p.id} className="ds-project-card" onClick={() => { window.location.hash = p.id; setMode(p.mode); }}>
+                  <div className={`ds-project-card__preview ds-project-card__preview--${p.theme}`}>
+                    <Icon name={p.icon} size="xl" />
+                  </div>
+                  <div className="ds-project-card__meta">
+                    <div className="ds-project-card__title">
+                      <p className="text-s-medium">{p.label}</p>
+                      <span className="text-s-medium">→</span>
+                    </div>
+                    <p className="ds-project-card__description text-xs-regular">{p.description}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <h3 className="ds-overview-subtitle text-h4">Library</h3>
             <div className="ds-overview-grid">
               {SECTIONS.filter(s => s.id !== 'overview').map(s => (
                 <button key={s.id} className="ds-overview-card" onClick={() => navigateDs(s.id)}>
@@ -329,6 +353,15 @@ export default function App() {
           <Row label="With icons">
             <Button variant="primary" iconLeft={<BoltIcon />}>Pay with Bolt</Button>
             <Button variant="secondary" iconRight={<ChevronIcon />}>Continue</Button>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Button variant="primary" size="m" onClick={handleClick}>
+  Pay with Bolt
+</Button>
+
+<Button variant="secondary" iconRight={<ChevronIcon />}>
+  Continue
+</Button>`}</CodeBlock>
           </Row>
         </Section>
         )}
@@ -486,6 +519,25 @@ export default function App() {
               Are you sure you want to authorize a payment of <strong>$149.00</strong> to Acme Store? This action cannot be undone.
             </p>
           </Modal>
+          <Row label="Usage">
+            <CodeBlock>{`const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Open modal</Button>
+
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Confirm payment"
+  footer={
+    <>
+      <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button variant="primary" onClick={() => setOpen(false)}>Confirm</Button>
+    </>
+  }
+>
+  Are you sure you want to authorize a payment of $149.00?
+</Modal>`}</CodeBlock>
+          </Row>
         </Section>
         )}
 
@@ -536,6 +588,70 @@ export default function App() {
                 </Select>
               </div>
             </div>
+          </Row>
+        </Section>
+        )}
+
+        {/* ── Combobox ───────────────────────────────────── */}
+        {dsSection === 'combobox' && (
+        <Section title="Combobox">
+          <Row label="Default">
+            <div style={{ width: 260 }}>
+              <Combobox
+                label="Currency"
+                value={comboboxValue}
+                onChange={setComboboxValue}
+                options={[
+                  { value: 'usd', label: 'USD — US Dollar' },
+                  { value: 'eur', label: 'EUR — Euro' },
+                  { value: 'gbp', label: 'GBP — British Pound' },
+                  { value: 'jpy', label: 'JPY — Japanese Yen' },
+                  { value: 'cad', label: 'CAD — Canadian Dollar' },
+                ]}
+              />
+            </div>
+          </Row>
+          <Row label="Sizes">
+            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end' }}>
+              <div style={{ width: 240 }}>
+                <Combobox label="Medium" size="m" value="visa" onChange={() => {}} options={[
+                  { value: 'visa', label: 'Visa •••• 4242' },
+                  { value: 'mc', label: 'Mastercard •••• 8080' },
+                ]} />
+              </div>
+              <div style={{ width: 200 }}>
+                <Combobox label="Small" size="s" value="visa" onChange={() => {}} options={[
+                  { value: 'visa', label: 'Visa •••• 4242' },
+                  { value: 'mc', label: 'Mastercard •••• 8080' },
+                ]} />
+              </div>
+            </div>
+          </Row>
+          <Row label="States">
+            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+              <div style={{ width: 240 }}>
+                <Combobox label="Error" status="error" hint="Please pick a currency." value="" onChange={() => {}} options={[
+                  { value: 'usd', label: 'USD' },
+                  { value: 'eur', label: 'EUR' },
+                ]} />
+              </div>
+              <div style={{ width: 240 }}>
+                <Combobox label="Disabled" disabled value="usd" onChange={() => {}} options={[
+                  { value: 'usd', label: 'USD' },
+                ]} />
+              </div>
+            </div>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Combobox
+  label="Currency"
+  value={value}
+  onChange={setValue}
+  options={[
+    { value: 'usd', label: 'USD — US Dollar' },
+    { value: 'eur', label: 'EUR — Euro' },
+  ]}
+/>`}</CodeBlock>
           </Row>
         </Section>
         )}
@@ -662,6 +778,8 @@ function OverviewPreview({ id }: { id: string }) {
       return <div style={{ width: 160 }}><Input placeholder="Type here" size="s" /></div>;
     case 'select':
       return <div style={{ width: 160 }}><Select size="s"><option>Option</option></Select></div>;
+    case 'combobox':
+      return <div style={{ width: 160, pointerEvents: 'none' }}><Combobox size="s" value="usd" onChange={() => {}} options={[{ value: 'usd', label: 'USD' }]} /></div>;
     case 'controls':
       return (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

@@ -61,8 +61,6 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  max-width: 1200px;
-  margin: 0 auto;
   padding: var(--space-4) var(--space-6);
 }
 
@@ -92,24 +90,30 @@
   width: 240px;
   flex-shrink: 0;
   position: sticky;
-  top: 73px;
-  height: calc(100vh - 73px);
+  top: 57px;
+  height: calc(100vh - 57px);
   overflow-y: auto;
   background: var(--surface-primary);
   border-right: var(--border-width) solid var(--border-tertiary);
-  padding: var(--space-6) var(--space-4);
+  padding: var(--space-4) var(--space-4);
 }
 
 .ds-sidebar__nav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-6);
 }
 
 .ds-nav-group {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding-bottom: var(--space-3);
+}
+
+.ds-nav-group + .ds-nav-group {
+  border-top: var(--border-width) solid var(--border-tertiary);
+  padding-top: var(--space-5);
 }
 
 .ds-nav-group__label {
@@ -168,6 +172,84 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-4);
+}
+
+.ds-overview-subtitle {
+  color: var(--content-primary);
+  margin-top: var(--space-8);
+}
+
+/* ── Project cards (prototypes) ───────────────────────────── */
+.ds-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.ds-project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  background: var(--surface-primary);
+  border: var(--border-width) solid var(--border-tertiary);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: left;
+  transition: border-color var(--duration-base) var(--ease-default), transform var(--duration-base) var(--ease-default), box-shadow var(--duration-base) var(--ease-default);
+}
+
+.ds-project-card:hover {
+  border-color: var(--content-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.ds-project-card__preview {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  color: var(--content-inverse-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.ds-project-card__preview--onboarding {
+  background: linear-gradient(135deg, #11190c 0%, #2a3a1f 100%);
+}
+
+.ds-project-card__preview--offers {
+  background: linear-gradient(135deg, #006dff 0%, #8c40f2 100%);
+}
+
+.ds-project-card__preview--config {
+  background: linear-gradient(135deg, #e1ff00 0%, #a8c200 100%);
+  color: var(--content-primary);
+}
+
+.ds-project-card__meta {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-top: var(--border-width) solid var(--border-tertiary);
+}
+
+.ds-project-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--content-primary);
+}
+
+.ds-project-card__description {
+  color: var(--content-secondary);
 }
 
 .ds-overview-card {

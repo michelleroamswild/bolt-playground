@@ -13,3 +13,4 @@ export * from './Tabs';
 export * from './Avatar';
 export * from './Icon';
 export * from './Combobox';
+export * from './CodeBlock';
