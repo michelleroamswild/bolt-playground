@@ -14,3 +14,8 @@ export * from './Avatar';
 export * from './Icon';
 export * from './Combobox';
 export * from './CodeBlock';
+export * from './Progress';
+export * from './Tooltip';
+export * from './PropsTable';
+export * from './Guidelines';
+export * from './A11yNote';

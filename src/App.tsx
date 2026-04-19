@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock } from './components';
+import { Button, Input, Toggle, Checkbox, Radio, Tag, Callout, Modal, ToastContainer, Accordion, AccordionItem, Select, Tabs, Avatar, Icon, ICON_NAMES, Combobox, CodeBlock, Progress, Tooltip, PropsTable, Guidelines, A11yNote } from './components';
 import type { ToastItem } from './components';
 import type { IconName } from './components/Icon';
 import { Prototype } from './prototype/Prototype';
@@ -175,6 +175,8 @@ export default function App() {
     { id: 'tabs',       label: 'Tabs',       group: 'Components' },
     { id: 'avatar',     label: 'Avatar',     group: 'Components' },
     { id: 'toast',      label: 'Toast',      group: 'Components' },
+    { id: 'progress',   label: 'Progress',   group: 'Components' },
+    { id: 'tooltip',    label: 'Tooltip',    group: 'Components' },
   ];
 
   const groups = Array.from(new Set(SECTIONS.filter(s => s.group).map(s => s.group)));
@@ -363,6 +365,45 @@ export default function App() {
   Continue
 </Button>`}</CodeBlock>
           </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'variant',     type: "'primary' | 'secondary' | 'tertiary'", defaultValue: "'primary'", description: 'Visual emphasis. Use primary for the main action on a surface.' },
+              { name: 'size',        type: "'xs' | 's' | 'm'",                     defaultValue: "'m'",       description: 'Control height and padding.' },
+              { name: 'shape',       type: "'default' | 'pill'",                   defaultValue: "'default'", description: 'Pill uses fully rounded corners.' },
+              { name: 'destructive', type: 'boolean',                              defaultValue: 'false',     description: 'Applies the critical color treatment for destructive actions.' },
+              { name: 'busy',        type: 'boolean',                              defaultValue: 'false',     description: 'Shows a spinner and disables interaction.' },
+              { name: 'inverse',     type: 'boolean',                              defaultValue: 'false',     description: 'Recolors the button for dark backgrounds.' },
+              { name: 'iconLeft',    type: 'ReactNode',                            defaultValue: '—',         description: 'Leading icon (pass a node, not a name).' },
+              { name: 'iconRight',   type: 'ReactNode',                            defaultValue: '—',         description: 'Trailing icon.' },
+              { name: 'fullWidth',   type: 'boolean',                              defaultValue: 'false',     description: 'Stretches to the container width.' },
+              { name: 'disabled',    type: 'boolean',                              defaultValue: 'false',     description: 'Disables the button (also set by busy).' },
+              { name: 'onClick',     type: '(e: MouseEvent) => void',              defaultValue: '—',         description: 'Click handler. Forwarded with all native button props.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use one primary button per surface', body: 'The primary button signals the single main action. Secondary or tertiary for everything else.' },
+                { label: 'Lead with a verb in the label',     body: 'Good: "Save changes", "Pay $149.00". Avoid nouns like "Payment" or "OK".' },
+                { label: 'Pair busy state with a disabled form', body: 'While the server request is in-flight, disable related inputs so users can\'t retry mid-submit.' },
+              ]}
+              dont={[
+                { label: "Don't stack multiple primary buttons", body: 'Competing primaries make the main action ambiguous.' },
+                { label: "Don't use destructive for routine saves",  body: 'Reserve the critical color for actions that delete or cannot be undone.' },
+                { label: "Don't mix sizes in a single action row", body: 'Keep a row of buttons at the same size so the layout stays scannable.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Always provide a text label; for icon-only buttons, use <code>aria-label</code>.</li>
+                <li>Focus ring is visible on keyboard focus — don't remove <code>:focus-visible</code> styles.</li>
+                <li><code>busy</code> toggles <code>disabled</code>, which removes the button from the tab order. Announce state changes elsewhere (e.g. a toast) if the user needs confirmation.</li>
+                <li>For destructive actions, consider a confirmation step (Modal) so the action can't be triggered accidentally.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -391,6 +432,21 @@ export default function App() {
               <Tag inverse>Completed</Tag>
             </div>
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tag sentiment="success">Authorized</Tag>
+<Tag sentiment="warning" outline>Pending</Tag>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'sentiment', type: "'neutral' | 'success' | 'warning' | 'error' | 'informative' | 'highlight' | 'quiet'", defaultValue: "'neutral'", description: 'Color treatment. Maps to semantic colors.' },
+              { name: 'size',      type: "'s' | 'm'",  defaultValue: "'m'",   description: 'Visual density.' },
+              { name: 'outline',   type: 'boolean',    defaultValue: 'false', description: 'Outlined variant — transparent fill with colored border.' },
+              { name: 'inverse',   type: 'boolean',    defaultValue: 'false', description: 'Use on dark surfaces.' },
+              { name: 'iconLeft',  type: 'ReactNode',  defaultValue: '—',     description: 'Leading icon.' },
+              { name: 'iconRight', type: 'ReactNode',  defaultValue: '—',     description: 'Trailing icon.' },
+              { name: 'children',  type: 'ReactNode',  required: true,         description: 'Label text.' },
+            ]} />
+          </Row>
         </Section>
         )}
 
@@ -417,6 +473,51 @@ export default function App() {
               <Input label="Flat" placeholder="Flat input" variant="flat" />
             </div>
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Input
+  label="Email"
+  placeholder="you@example.com"
+  value={email}
+  onChange={e => setEmail(e.target.value)}
+  status="error"
+  hint="Please enter a valid email."
+/>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'label',     type: 'string',                       defaultValue: '—',         description: 'Visible label. Associates with the input via htmlFor.' },
+              { name: 'size',      type: "'s' | 'm'",                    defaultValue: "'m'",       description: 'Control height.' },
+              { name: 'variant',   type: "'outline' | 'flat'",           defaultValue: "'outline'", description: 'Border treatment. Flat is borderless, for compact layouts.' },
+              { name: 'status',    type: "'default' | 'error' | 'warning'", defaultValue: "'default'", description: 'Validation state. Error/warning color the border and hint.' },
+              { name: 'hint',      type: 'string',                       defaultValue: '—',         description: 'Helper text shown under the input.' },
+              { name: 'iconLeft',  type: 'ReactNode',                    defaultValue: '—',         description: 'Leading icon (e.g. search).' },
+              { name: 'iconRight', type: 'ReactNode',                    defaultValue: '—',         description: 'Trailing icon.' },
+              { name: 'disabled',  type: 'boolean',                      defaultValue: 'false',     description: 'Disables the input.' },
+              { name: '...rest',   type: 'InputHTMLAttributes',          defaultValue: '—',         description: 'All native input props (value, onChange, type, placeholder, etc.) are forwarded.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Write clear, short labels', body: 'Prefer "Email" over "Please enter your email address".' },
+                { label: 'Use hints for format cues', body: 'e.g. "We\'ll never share this" or "4 digits".' },
+                { label: 'Set status="error" only after submit', body: 'Don\'t mark a field as invalid while the user is still typing.' },
+              ]}
+              dont={[
+                { label: "Don't rely on placeholder as the label",  body: 'Placeholder disappears on input, which breaks screen-reader flow and memory.' },
+                { label: "Don't combine error + warning states",     body: 'Pick the more important one — error wins.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Always pair each input with a <code>label</code>. If the label is visually hidden, pass an <code>aria-label</code>.</li>
+                <li>When <code>status="error"</code>, include a <code>hint</code> that names the problem — screen readers announce it via the label's description.</li>
+                <li>Focus state uses <code>:focus-visible</code> — don't override with <code>outline: none</code>.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -434,6 +535,59 @@ export default function App() {
             <Checkbox label="Checked" checked={checked} onChange={e => setChecked(e.target.checked)} />
             <Checkbox label="Indeterminate" indeterminate />
             <Checkbox label="Disabled" disabled />
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Toggle
+  label="Notifications"
+  checked={on}
+  onChange={e => setOn(e.target.checked)}
+/>
+
+<Checkbox
+  label="I agree to the terms"
+  checked={agreed}
+  onChange={e => setAgreed(e.target.checked)}
+/>`}</CodeBlock>
+          </Row>
+          <Row label="Toggle props">
+            <PropsTable rows={[
+              { name: 'label',    type: 'string',              defaultValue: '—',     description: 'Visible label associated with the control.' },
+              { name: 'checked',  type: 'boolean',             defaultValue: '—',     description: 'Controlled on/off state.' },
+              { name: 'onChange', type: '(e: ChangeEvent) => void', defaultValue: '—', description: 'Fires on user toggle.' },
+              { name: 'disabled', type: 'boolean',             defaultValue: 'false', description: 'Disables interaction.' },
+              { name: '...rest',  type: 'InputHTMLAttributes', defaultValue: '—',     description: 'Native input props forwarded. Role is set to "switch".' },
+            ]} />
+          </Row>
+          <Row label="Checkbox props">
+            <PropsTable rows={[
+              { name: 'label',        type: 'ReactNode',           defaultValue: '—',     description: 'Visible label.' },
+              { name: 'size',         type: "'s' | 'm'",           defaultValue: "'m'",   description: 'Box size.' },
+              { name: 'checked',      type: 'boolean',             defaultValue: '—',     description: 'Controlled checked state.' },
+              { name: 'indeterminate',type: 'boolean',             defaultValue: 'false', description: 'Visually shows a dash — e.g. for "some items selected".' },
+              { name: 'onChange',     type: '(e: ChangeEvent) => void', defaultValue: '—', description: 'Fires on user toggle.' },
+              { name: 'disabled',     type: 'boolean',             defaultValue: 'false', description: 'Disables interaction.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use Toggle for instant-commit settings',  body: 'e.g. "Enable notifications" — the change takes effect immediately.' },
+                { label: 'Use Checkbox for form-committed choices', body: 'e.g. terms agreement, opt-ins inside a form that submits on Save.' },
+              ]}
+              dont={[
+                { label: "Don't wrap a Toggle in Save/Cancel",        body: 'Toggle implies immediate effect; deferring it confuses users.' },
+                { label: "Don't use a Checkbox for binary app state", body: 'A toggle is clearer for on/off switches.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Toggle uses <code>role="switch"</code> so it's announced as "Switch, off/on".</li>
+                <li>Both controls use a <code>&lt;label&gt;</code> wrapper so clicking the label also activates the control.</li>
+                <li>Indeterminate state on checkbox is purely visual; <code>aria-checked="mixed"</code> is announced by screen readers.</li>
+              </ul>
+            </A11yNote>
           </Row>
         </Section>
         )}
@@ -455,6 +609,41 @@ export default function App() {
               One-click checkout is now available for returning customers.
             </Callout>
           </div>
+          <Row label="Usage">
+            <CodeBlock>{`<Callout sentiment="success" title="Payment authorized">
+  Your payment of $149.00 has been successfully authorized.
+</Callout>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'sentiment', type: "'success' | 'warning' | 'error' | 'informative'", required: true, description: 'Semantic color and default icon.' },
+              { name: 'layout',    type: "'inline' | 'flush'",                              defaultValue: "'inline'", description: 'Inline is padded+bordered; flush removes the outer chrome for embedding inside other containers.' },
+              { name: 'title',     type: 'string',                                         defaultValue: '—',        description: 'Optional bold headline above the message.' },
+              { name: 'icon',      type: 'ReactNode',                                      defaultValue: 'sentiment default', description: 'Override the leading icon.' },
+              { name: 'action',    type: 'ReactNode',                                      defaultValue: '—',        description: 'Trailing action — typically a Button or link.' },
+              { name: 'children',  type: 'ReactNode',                                      required: true,           description: 'Message body.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Match sentiment to severity',     body: 'Error for failures, warning for risk, informative for context, success for confirmation.' },
+                { label: 'Keep messages short and scannable', body: 'Lead with what happened, follow with what to do next.' },
+              ]}
+              dont={[
+                { label: "Don't use error sentiment for validation hints on inputs", body: 'Use the Input hint with status="error" — keep field-level errors near the field.' },
+                { label: "Don't stack multiple callouts",    body: 'Collapse related messages into a single callout or a toast queue.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Renders with <code>role="alert"</code> so assistive tech announces the message when it appears.</li>
+                <li>For status that doesn't need interrupt-level announcement, wrap the content in a plain container instead.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -472,6 +661,41 @@ export default function App() {
             <Radio name="r3" label="Checked" defaultChecked />
             <Radio name="r4" label="Disabled" disabled />
             <Radio name="r4" label="Disabled checked" disabled defaultChecked />
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Radio name="plan" label="Starter"  value="starter"  checked={plan === 'starter'}  onChange={() => setPlan('starter')} />
+<Radio name="plan" label="Business" value="business" checked={plan === 'business'} onChange={() => setPlan('business')} />`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'label',    type: 'ReactNode',           defaultValue: '—',     description: 'Option label.' },
+              { name: 'name',     type: 'string',              required: true,        description: 'Group name — all radios in a single choice must share this.' },
+              { name: 'value',    type: 'string',              defaultValue: '—',     description: 'The option value that becomes the form value when selected.' },
+              { name: 'size',     type: "'s' | 'm'",           defaultValue: "'m'",   description: 'Control size.' },
+              { name: 'checked',  type: 'boolean',             defaultValue: '—',     description: 'Controlled checked state.' },
+              { name: 'onChange', type: '(e: ChangeEvent) => void', defaultValue: '—', description: 'Fires on selection.' },
+              { name: 'disabled', type: 'boolean',             defaultValue: 'false', description: 'Disables the option.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use radios for 2–5 mutually-exclusive options', body: 'Above 5, use a Select or Combobox.' },
+                { label: 'Always preselect a sensible default',           body: 'Avoid a state where no option is chosen unless the form allows "none".' },
+              ]}
+              dont={[
+                { label: "Don't use radios for independent toggles", body: 'Use checkboxes or toggles when options can be chosen independently.' },
+                { label: "Don't mix radio groups without labels",     body: 'Group related radios under a visible legend.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Arrow keys move between radios in a group — don't disable this native behavior.</li>
+                <li>Wrap related radios in a <code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code> so screen readers announce the group label.</li>
+              </ul>
+            </A11yNote>
           </Row>
         </Section>
         )}
@@ -495,6 +719,45 @@ export default function App() {
               </AccordionItem>
             </Accordion>
           </div>
+          <Row label="Usage">
+            <CodeBlock>{`<Accordion>
+  <AccordionItem title="What payment methods are accepted?" defaultOpen>
+    We accept Visa, Mastercard, Amex, PayPal, Apple Pay, and Bolt.
+  </AccordionItem>
+  <AccordionItem title="Is my payment information secure?">
+    Yes — encrypted and PCI DSS Level 1 compliant.
+  </AccordionItem>
+</Accordion>`}</CodeBlock>
+          </Row>
+          <Row label="AccordionItem props">
+            <PropsTable rows={[
+              { name: 'title',       type: 'string',        required: true,         description: 'Header text. Rendered as the toggle button.' },
+              { name: 'defaultOpen', type: 'boolean',       defaultValue: 'false',  description: 'Open on first render. Each item manages its own state.' },
+              { name: 'disabled',    type: 'boolean',       defaultValue: 'false',  description: 'Prevents interaction and visually dims the item.' },
+              { name: 'size',        type: "'s' | 'm'",     defaultValue: "'m'",    description: 'Header density.' },
+              { name: 'children',    type: 'ReactNode',     required: true,         description: 'Body content, revealed when open.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for optional / secondary content', body: 'FAQs, advanced settings, progressive disclosure.' },
+                { label: 'Write scannable titles',                body: 'The user should know what\'s inside before opening.' },
+              ]}
+              dont={[
+                { label: "Don't hide critical content",           body: 'If the user must see it, show it inline.' },
+                { label: "Don't nest accordions more than one level", body: 'Nested accordions make the content hierarchy confusing.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>The header button uses <code>aria-expanded</code> and <code>aria-controls</code> to link to its panel.</li>
+                <li>The panel is hidden via the <code>hidden</code> attribute when closed — assistive tech skips it.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -537,6 +800,37 @@ export default function App() {
 >
   Are you sure you want to authorize a payment of $149.00?
 </Modal>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'open',     type: 'boolean',      required: true,        description: 'Whether the modal is shown.' },
+              { name: 'onClose',  type: '() => void',   required: true,        description: 'Called when the user dismisses the modal (backdrop click, Escape, close button).' },
+              { name: 'title',    type: 'string',       defaultValue: '—',     description: 'Modal heading. Anchors the dialog semantically.' },
+              { name: 'footer',   type: 'ReactNode',    defaultValue: '—',     description: 'Usually one or two buttons — cancel / primary action.' },
+              { name: 'size',     type: "'s' | 'm' | 'l'", defaultValue: "'m'", description: 'Dialog width.' },
+              { name: 'children', type: 'ReactNode',    required: true,        description: 'Body content.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for decisions the user must make',        body: 'Confirming a destructive action, choosing between options, entering a short form.' },
+                { label: 'Offer a clear primary + cancel',              body: 'Users should always have a "get out of here" path.' },
+              ]}
+              dont={[
+                { label: "Don't stack modals",                          body: 'A modal opening another modal is a sign the flow should be a full page.' },
+                { label: "Don't use for long content",                   body: 'If the body needs scrolling beyond the viewport, consider a full page or drawer.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Built on native <code>&lt;dialog&gt;</code> with <code>showModal()</code>: focus is trapped, and Escape closes automatically.</li>
+                <li>The <code>title</code> prop becomes the accessible name of the dialog — always provide one.</li>
+                <li>Clicking the backdrop closes the modal; be careful this isn't destructive mid-flow.</li>
+              </ul>
+            </A11yNote>
           </Row>
         </Section>
         )}
@@ -588,6 +882,46 @@ export default function App() {
                 </Select>
               </div>
             </div>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Select
+  label="Country"
+  value={country}
+  onChange={e => setCountry(e.target.value)}
+>
+  <option value="us">United States</option>
+  <option value="ca">Canada</option>
+  <option value="uk">United Kingdom</option>
+</Select>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'label',       type: 'string',                         defaultValue: '—',         description: 'Visible label.' },
+              { name: 'size',        type: "'xs' | 's' | 'm'",               defaultValue: "'m'",       description: 'Control height.' },
+              { name: 'variant',     type: "'outline' | 'flat'",             defaultValue: "'outline'", description: 'Border treatment.' },
+              { name: 'status',      type: "'default' | 'error' | 'warning'", defaultValue: "'default'", description: 'Validation state.' },
+              { name: 'placeholder', type: 'string',                         defaultValue: '—',         description: 'Disabled first option shown when nothing is selected.' },
+              { name: 'hint',        type: 'string',                         defaultValue: '—',         description: 'Helper text below the select.' },
+              { name: 'disabled',    type: 'boolean',                        defaultValue: 'false',     description: 'Disables the control.' },
+              { name: '...rest',     type: 'SelectHTMLAttributes',           defaultValue: '—',         description: 'All native select props (value, onChange) are forwarded.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for 5+ options where search is overkill', body: 'Country, currency, plan tier, etc.' },
+                { label: 'Sort options predictably',                    body: 'Alphabetically, or by frequency of use — not randomly.' },
+              ]}
+              dont={[
+                { label: "Don't use for 2–5 options",    body: 'Radio is clearer when the set is small and visible.' },
+                { label: "Don't use without a default or placeholder", body: 'An empty select gives no cue to what\'s inside.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              Renders a native <code>&lt;select&gt;</code> — keyboard, touch, and screen-reader behavior come from the browser. If you need custom option rendering (icons, descriptions), use <code>Combobox</code> instead.
+            </A11yNote>
           </Row>
         </Section>
         )}
@@ -653,6 +987,39 @@ export default function App() {
   ]}
 />`}</CodeBlock>
           </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'label',       type: 'string',                             defaultValue: '—',       description: 'Visible label.' },
+              { name: 'value',       type: 'string',                             required: true,          description: 'Currently-selected option value.' },
+              { name: 'onChange',    type: '(value: string) => void',            required: true,          description: 'Called with the chosen option value.' },
+              { name: 'options',     type: '{ value: string; label: string; leadingIcon?: ReactNode }[]', required: true, description: 'Selectable options.' },
+              { name: 'placeholder', type: 'string',                             defaultValue: "'Select...'", description: 'Trigger text when no option is selected.' },
+              { name: 'size',        type: "'m' | 's'",                          defaultValue: "'m'",     description: 'Control height.' },
+              { name: 'status',      type: "'default' | 'error' | 'warning'",    defaultValue: "'default'", description: 'Validation state.' },
+              { name: 'hint',        type: 'string',                             defaultValue: '—',       description: 'Helper text.' },
+              { name: 'disabled',    type: 'boolean',                            defaultValue: 'false',   description: 'Disables the trigger.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for lists that benefit from rich options', body: 'Icons, prices, metadata per option — things native select can\'t show.' },
+                { label: 'Keep the option set bounded',                  body: 'Under ~50 items. Beyond that, add search/async loading.' },
+              ]}
+              dont={[
+                { label: "Don't use when native Select suffices",        body: 'Native select is faster, simpler, and better on mobile.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Trigger uses <code>aria-expanded</code> + <code>aria-controls</code>. Popover renders in a portal with <code>role="listbox"</code>.</li>
+                <li>Arrow keys navigate options; Enter/Space commits; Escape closes.</li>
+                <li>Focus returns to the trigger after close.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -679,6 +1046,44 @@ export default function App() {
                 { id: 'refunded', label: 'Refunded' },
               ]}
             />
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tabs
+  items={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'transactions', label: 'Transactions', badge: 12 },
+    { id: 'settings', label: 'Settings' },
+  ]}
+  onChange={setActiveTab}
+/>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'items',      type: 'TabItem[]',               required: true,         description: 'Each item has id, label, optional badge, disabled, and content.' },
+              { name: 'defaultTab', type: 'string',                  defaultValue: 'first item\'s id', description: 'id of the tab to show initially.' },
+              { name: 'variant',    type: "'default' | 'pill'",      defaultValue: "'default'", description: 'Underline tabs (default) or pill tabs.' },
+              { name: 'onChange',   type: '(id: string) => void',    defaultValue: '—',      description: 'Called when the user selects a tab.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for sibling views within a page', body: 'Overview / Transactions / Settings on a merchant dashboard.' },
+                { label: 'Keep labels one or two words',        body: 'Tabs are scanned, not read.' },
+              ]}
+              dont={[
+                { label: "Don't use for wizards",                body: 'Wizards have a forward-only flow — use a Stepper instead.' },
+                { label: "Don't use more than ~5 tabs",          body: 'Overflow hides content; a sidenav is better.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Each tab uses <code>role="tab"</code> with <code>aria-selected</code>; panels use <code>role="tabpanel"</code>.</li>
+                <li>Consider adding left/right arrow key navigation between tabs in a future pass.</li>
+              </ul>
+            </A11yNote>
           </Row>
         </Section>
         )}
@@ -708,6 +1113,32 @@ export default function App() {
               </div>
             ))}
           </div>
+          <Row label="Usage">
+            <CodeBlock>{`<Icon name="bolt_icon_filled" size="l" />
+
+{/* Decorative vs. informative */}
+<Icon name="search" />                          {/* hidden from screen readers */}
+<Icon name="search" title="Search" />           {/* announced as "Search" */}`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'name',  type: 'IconName',                         required: true,    description: 'One of the generated icon names. Typed — invalid names are a compile error.' },
+              { name: 'size',  type: "'xs' | 's' | 'm' | 'l' | 'xl' | number", defaultValue: "'l'", description: 'One of the preset sizes, or an explicit pixel value.' },
+              { name: 'title', type: 'string',                           defaultValue: '—', description: 'Accessible name. When provided, the icon is announced; otherwise it\'s hidden from screen readers.' },
+              { name: '...rest', type: 'SVGAttributes',                  defaultValue: '—', description: 'Native SVG props forwarded (className, style, etc.).' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Set title only when the icon carries meaning', body: 'Standalone icons (an icon-only button) need a title or parent aria-label.' },
+                { label: 'Inherit color from the parent',                body: 'Icons use <code>currentColor</code> so wrapping them in a colored element re-tints them.' },
+              ]}
+              dont={[
+                { label: "Don't set title on decorative icons",          body: 'A heart next to "Favorites" label is decoration — don\'t double-announce it.' },
+              ]}
+            />
+          </Row>
         </Section>
         )}
 
@@ -726,6 +1157,30 @@ export default function App() {
             <Avatar name="Alice B" />
             <Avatar />
           </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Avatar name="Michelle Taylor" size="m" />
+
+<Avatar src="/avatars/alice.jpg" name="Alice" size="l" />`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'name', type: 'string',                         defaultValue: '—',   description: 'Full name — used for initials fallback and as the accessible label.' },
+              { name: 'src',  type: 'string',                         defaultValue: '—',   description: 'Image URL. When provided, the image is rendered instead of initials.' },
+              { name: 'size', type: "'xs' | 's' | 'm' | 'l' | 'xl'",  defaultValue: "'m'", description: 'Avatar diameter.' },
+              { name: 'icon', type: 'ReactNode',                      defaultValue: '—',   description: 'Icon fallback when there\'s no image and no name.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Always pass a name',        body: 'It drives the initials fallback and the ARIA label.' },
+                { label: 'Prefer images over initials', body: 'If a headshot exists, show it.' },
+              ]}
+              dont={[
+                { label: "Don't use Avatar for brand logos", body: 'Use an <Icon /> or <img> for logos so they don\'t get cropped into a circle.' },
+              ]}
+            />
+          </Row>
         </Section>
         )}
 
@@ -741,6 +1196,174 @@ export default function App() {
             <Button variant="secondary" size="s" onClick={() => addToast({ message: 'Session saved', sentiment: 'success', inverse: true })}>Inverse</Button>
           </Row>
           <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+          <Row label="Usage">
+            <CodeBlock>{`const [toasts, setToasts] = useState<ToastItem[]>([]);
+
+const addToast = (t: Omit<ToastItem, 'id'>) =>
+  setToasts(prev => [...prev, { ...t, id: crypto.randomUUID() }]);
+
+<Button onClick={() => addToast({ message: 'Payment authorized', sentiment: 'success' })}>
+  Show toast
+</Button>
+
+<ToastContainer
+  toasts={toasts}
+  onDismiss={id => setToasts(t => t.filter(x => x.id !== id))}
+/>`}</CodeBlock>
+          </Row>
+          <Row label="Toast props">
+            <PropsTable rows={[
+              { name: 'message',     type: 'string',                                       required: true,        description: 'Short, single-line message.' },
+              { name: 'description', type: 'string',                                       defaultValue: '—',     description: 'Secondary line with more context.' },
+              { name: 'sentiment',   type: "'default' | 'success' | 'error' | 'warning'",  defaultValue: "'default'", description: 'Color + icon treatment.' },
+              { name: 'action',      type: '{ label: string; onClick: () => void }',       defaultValue: '—',     description: 'Inline action (e.g. Undo).' },
+              { name: 'duration',    type: 'number',                                       defaultValue: '4000',  description: 'ms before auto-dismiss. 0 = persistent.' },
+              { name: 'inverse',     type: 'boolean',                                      defaultValue: 'false', description: 'Dark-surface treatment.' },
+              { name: 'onDismiss',   type: '() => void',                                   defaultValue: '—',     description: 'Called when the toast should go away (timeout or close click).' },
+            ]} />
+          </Row>
+          <Row label="ToastContainer props">
+            <PropsTable rows={[
+              { name: 'toasts',    type: 'ToastItem[]',            required: true, description: 'Array of toasts to render. Each needs a stable id.' },
+              { name: 'onDismiss', type: '(id: string) => void',   required: true, description: 'Called when an individual toast dismisses.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use for transient confirmations', body: '"Payment authorized", "Changes saved", "Item removed".' },
+                { label: 'Include an Undo action for destructive toasts', body: 'Gives users a recovery path without a modal.' },
+              ]}
+              dont={[
+                { label: "Don't use for errors that need action", body: 'If the user must do something, use a Callout or Modal.' },
+                { label: "Don't stack too many at once",          body: 'Queue them; show one or two max.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>Each toast uses <code>role="status"</code> with <code>aria-live="polite"</code> — non-interrupting announcements.</li>
+                <li>For critical errors, reconsider a toast and use a Callout or Modal so the user can't miss it.</li>
+              </ul>
+            </A11yNote>
+          </Row>
+        </Section>
+        )}
+
+        {/* ── Progress ───────────────────────────────────── */}
+        {dsSection === 'progress' && (
+        <Section title="Progress">
+          <Row label="Sizes">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
+              <Progress value={40} size="m" />
+              <Progress value={70} size="s" />
+            </div>
+          </Row>
+          <Row label="Sentiment">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 360 }}>
+              <Progress value={55} sentiment="default" label="Default" showValue />
+              <Progress value={80} sentiment="success" label="Success" showValue />
+              <Progress value={60} sentiment="warning" label="Warning" showValue />
+              <Progress value={25} sentiment="error"   label="Error"   showValue />
+            </div>
+          </Row>
+          <Row label="Indeterminate">
+            <div style={{ width: 360 }}>
+              <Progress indeterminate label="Processing payment…" />
+            </div>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Progress value={70} label="Uploading" showValue />
+
+<Progress indeterminate label="Processing payment…" />`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'value',         type: 'number',                                         defaultValue: '0',        description: 'Current value (0 to max).' },
+              { name: 'max',           type: 'number',                                         defaultValue: '100',      description: 'Maximum value.' },
+              { name: 'size',          type: "'s' | 'm'",                                      defaultValue: "'m'",      description: 'Track height.' },
+              { name: 'sentiment',     type: "'default' | 'success' | 'warning' | 'error'",   defaultValue: "'default'", description: 'Fill color.' },
+              { name: 'indeterminate', type: 'boolean',                                        defaultValue: 'false',    description: 'Animated shimmer when the progress amount is unknown.' },
+              { name: 'label',         type: 'string',                                         defaultValue: '—',        description: 'Label above the track — also used as aria-label.' },
+              { name: 'showValue',     type: 'boolean',                                        defaultValue: 'false',    description: 'Show the percentage next to the label.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use indeterminate when duration is unknown', body: 'Network requests, background jobs that don\'t report progress.' },
+                { label: 'Pair with a label that describes the task',  body: '"Uploading…", "Processing payment…"' },
+              ]}
+              dont={[
+                { label: "Don't use a determinate bar if the value can jump back", body: 'Progress should move forward; if it can reset, use indeterminate.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              Renders with <code>role="progressbar"</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code>, and <code>aria-valuenow</code> (omitted when indeterminate). The <code>label</code> prop becomes the accessible name.
+            </A11yNote>
+          </Row>
+        </Section>
+        )}
+
+        {/* ── Tooltip ────────────────────────────────────── */}
+        {dsSection === 'tooltip' && (
+        <Section title="Tooltip">
+          <Row label="Placements">
+            <div style={{ display: 'flex', gap: 32, padding: '48px 24px' }}>
+              <Tooltip content="Tooltip on top" placement="top">
+                <Button variant="secondary" size="s">Top</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on bottom" placement="bottom">
+                <Button variant="secondary" size="s">Bottom</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on left" placement="left">
+                <Button variant="secondary" size="s">Left</Button>
+              </Tooltip>
+              <Tooltip content="Tooltip on right" placement="right">
+                <Button variant="secondary" size="s">Right</Button>
+              </Tooltip>
+            </div>
+          </Row>
+          <Row label="On an icon button">
+            <Tooltip content="Copy to clipboard">
+              <Button variant="tertiary" size="s" iconLeft={<Icon name="copy" />}>Copy</Button>
+            </Tooltip>
+          </Row>
+          <Row label="Usage">
+            <CodeBlock>{`<Tooltip content="Copy to clipboard" placement="top">
+  <Button variant="tertiary">Copy</Button>
+</Tooltip>`}</CodeBlock>
+          </Row>
+          <Row label="Props">
+            <PropsTable rows={[
+              { name: 'content',   type: 'ReactNode',                             required: true,    description: 'Tooltip body.' },
+              { name: 'placement', type: "'top' | 'bottom' | 'left' | 'right'",  defaultValue: "'top'", description: 'Which side the bubble appears on.' },
+              { name: 'children',  type: 'ReactNode',                             required: true,    description: 'The trigger — anything focusable.' },
+            ]} />
+          </Row>
+          <Row label="Guidelines">
+            <Guidelines
+              do={[
+                { label: 'Use to clarify icon-only controls', body: 'Icon buttons with no visible label are a primary tooltip use case.' },
+                { label: 'Keep content short',                 body: 'A few words, not sentences.' },
+              ]}
+              dont={[
+                { label: "Don't put essential info in a tooltip", body: 'Tooltips disappear and don\'t work on touch devices — don\'t rely on them for critical instructions.' },
+                { label: "Don't include interactive elements",    body: 'Buttons or links inside a tooltip can\'t be reliably reached by keyboard or screen reader.' },
+              ]}
+            />
+          </Row>
+          <Row label="Accessibility">
+            <A11yNote>
+              <ul>
+                <li>The tooltip is linked to the trigger via <code>aria-describedby</code>; screen readers read it after the control.</li>
+                <li>Shows on hover and on keyboard focus. Touch devices get no hover — ensure the information is available another way.</li>
+              </ul>
+            </A11yNote>
+          </Row>
         </Section>
         )}
 
@@ -814,6 +1437,10 @@ function OverviewPreview({ id }: { id: string }) {
       );
     case 'toast':
       return <Icon name="notification" size="xl" />;
+    case 'progress':
+      return <div style={{ width: '80%' }}><Progress value={65} /></div>;
+    case 'tooltip':
+      return <Icon name="message" size="xl" />;
     default:
       return null;
   }
