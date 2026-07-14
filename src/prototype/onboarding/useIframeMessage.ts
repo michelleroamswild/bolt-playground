@@ -5,10 +5,10 @@ import { useEffect } from 'react';
  * in an iframe) and its parent window.
  *
  * Outbound — when the current step changes, posts:
- *   { type: 'bolt-onboarding:step', step: '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 7 }
+ *   { type: 'bolt-onboarding:step', step: '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 }
  *
  * Inbound — listens for:
- *   { type: 'bolt-onboarding:goto', step: '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 7 }
+ *   { type: 'bolt-onboarding:goto', step: '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 }
  *   { type: 'bolt-onboarding:reset' }
  *
  * Parent (portfolio) usage:
@@ -24,7 +24,7 @@ import { useEffect } from 'react';
  *   );
  */
 
-export type OnboardingStep = '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 7;
+export type OnboardingStep = '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export interface IframeMessageBridge {
   step: OnboardingStep;

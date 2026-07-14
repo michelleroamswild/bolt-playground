@@ -62,8 +62,15 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 export function Screen4Verify({ data, onBack, onSubmit }: Props) {
   const [attestTrue, setAttestTrue] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const canSubmit = attestTrue && agreeTerms;
+
+  // Fake network latency so the button spinner is visible before we advance.
+  const handleSubmit = () => {
+    setSubmitting(true);
+    setTimeout(onSubmit, 1600);
+  };
 
   const companyAddress = formatAddress(data.streetAddress, data.city, data.state, data.zip);
   const billingAddress = data.billingSameAsLegal
@@ -135,7 +142,13 @@ export function Screen4Verify({ data, onBack, onSubmit }: Props) {
         />
       </div>
 
-      <Button variant="primary" fullWidth disabled={!canSubmit} onClick={onSubmit}>
+      <Button
+        variant="primary"
+        fullWidth
+        disabled={!canSubmit}
+        busy={submitting}
+        onClick={handleSubmit}
+      >
         Submit and Create Account
       </Button>
     </OnboardingCard>
