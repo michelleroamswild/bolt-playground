@@ -8,6 +8,7 @@ import { Screen2CompanyInfo } from './screens/Screen2CompanyInfo';
 import { Screen3AccountInfo } from './screens/Screen3AccountInfo';
 import { Screen4Verify } from './screens/Screen4Verify';
 import { Screen5Processing } from './screens/Screen5Processing';
+import { Screen6Confirmation } from './screens/Screen6Confirmation';
 import { Screen7Created } from './screens/Screen7Created';
 
 export interface OnboardingData {
@@ -58,7 +59,7 @@ const emptyData: OnboardingData = {
   billingZip: '',
 };
 
-type Step = '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 7;
+type Step = '0b' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('0b');
@@ -94,10 +95,13 @@ export function OnboardingFlow() {
       screen = <Screen2CompanyInfo data={data} update={update} onBack={() => goTo(1)} onContinue={() => goTo(4)} />;
       break;
     case 4:
-      screen = <Screen4Verify data={data} onBack={() => goTo(2)} onSubmit={() => goTo(5)} />;
+      screen = <Screen4Verify data={data} onBack={() => goTo(2)} onSubmit={() => goTo(6)} />;
+      break;
+    case 6:
+      screen = <Screen6Confirmation onVisitHelp={() => goTo(5)} />;
       break;
     case 5:
-      screen = <Screen5Processing onDone={() => goTo(7)} />;
+      screen = <Screen5Processing onDone={() => { goTo(7); window.scrollTo({ top: 0, behavior: 'auto' }); }} />;
       break;
     case 7:
       screen = <Screen7Created onRestart={() => { setData(emptyData); goTo('0b'); window.scrollTo({ top: 0, behavior: 'auto' }); }} />;

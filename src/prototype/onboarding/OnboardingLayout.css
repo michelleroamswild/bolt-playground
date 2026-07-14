@@ -404,6 +404,15 @@
   margin: 0;
 }
 
+/* Confirmation screen */
+.ob-confirm__text {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--content-primary);
+  margin: 0;
+  width: 100%;
+}
+
 /* Success screen — What's Next intro block */
 .ob-whats-next {
   display: flex;
